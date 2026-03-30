@@ -1,0 +1,181 @@
+# Lab 00: AI Functions — Tu Primer Prototipo Agentico
+
+**Duración del equipo:** 2–3 personas
+**MVP:** 2–3 semanas | **Extensión:** si hay más tiempo
+**Nivel:** Introductorio — punto de entrada al programa
+**Biblioteca:** strands-ai-functions + Python 3.12+
+
+---
+
+## 1. Nombre del lab
+
+**AI Functions: Tu Primer Prototipo Agentico** — Construir un pipeline agentico con funciones descritas en lenguaje natural, post-conditions para autocorrección, y flujos que combinan múltiples funciones
+
+---
+
+## 2. Skill principal
+
+**AI Functions + Structured Outputs + Agentic Flows** — Diseño de funciones ejecutadas por un modelo de IA que devuelven objetos Python estructurados, con post-conditions que validan la salida y disparan ciclos de autocorrección cuando es necesario.
+
+---
+
+## 3. Problema a resolver
+
+El equipo elige **uno** de estos tres escenarios (o propone el suyo propio):
+
+**Escenario A — Log Intelligence**
+El equipo tiene logs de servidor (reales anonimizados o sintéticos). Procesarlos manualmente para detectar patrones, clasificar errores por severidad, e identificar las causas raíz toma horas. Nadie lo hace sistemáticamente y los problemas recurrentes se repiten.
+
+**Escenario B — Meeting Intelligence**
+El equipo tiene transcripciones de reuniones. Extraer manualmente los action items, sus responsables, las decisiones tomadas, y los temas sin resolver toma 20-30 minutos por reunión y el resultado es inconsistente entre personas.
+
+**Escenario C — Code Quality Reporter**
+El equipo tiene un módulo o servicio Python que nadie quiere documentar ni revisar porque es tedioso. Generar docstrings, detectar code smells, y producir un reporte de calidad manualmente lleva horas y siempre queda postergado.
+
+**O su propio escenario:** Un proceso repetitivo en el trabajo del equipo que implique transformar texto o datos no estructurados en output estructurado y accionable.
+
+---
+
+## 4. Producto objetivo
+
+Un **script Python o notebook** que implementa un pipeline agentico con:
+- Al menos **2 AI Functions** definidas para el escenario elegido
+- **Post-conditions** en cada función que validan la salida y disparan autocorrección cuando falla
+- Un **flujo combinado** que encadena las funciones (secuencial o asíncrono)
+- Evidencia visible de que una post-condition atrapó al menos un output incorrecto y el modelo lo autocorrigió
+
+**Demo de 15 minutos:**
+
+*Ejemplo para Escenario B (Meeting Intelligence):*
+
+1. **(0-3 min)** Mostrar el input: una transcripción de 10 minutos de reunión (datos sintéticos o anonimizados). Explicar el problema: "esto tarda 25 minutos procesarlo a mano y el resultado varía según quién lo hace".
+2. **(3-8 min)** Correr el pipeline:
+   ```
+   python meeting_pipeline.py transcript.txt
+
+   [1/3] Extracting action items...
+         → Found 4 items. Post-condition: checking owner assignment...
+         ✗ Item 3 has no owner. Retrying with clarification prompt...
+         ✓ Post-condition passed (attempt 2)
+
+   [2/3] Classifying decisions...
+         → Found 2 decisions. Post-condition: checking decision has rationale...
+         ✓ Post-condition passed
+
+   [3/3] Generating summary...
+         ✓ Done. Output: meeting_summary.json
+   ```
+3. **(8-12 min)** Mostrar el JSON de output: action items con owners y fechas, decisiones con rationale, resumen ejecutivo. Comparar con lo que hubiera generado a mano en 25 minutos.
+4. **(12-15 min)** Mostrar el log de autocorrección: dónde falló la post-condition, qué prompt se usó para el retry, cómo cambió el output entre el intento 1 y el intento 2.
+
+---
+
+## 5. Alcance del MVP (2 semanas)
+
+**Semana 1 — Primera AI Function funcionando:**
+- Setup del entorno: Python 3.12+, instalación de `strands-ai-functions`, acceso al modelo (Codex, GPT-4o-mini, o Amazon Bedrock)
+- Definir y ejecutar **una** AI Function para el escenario elegido
+- Explorar los ejemplos del repositorio (`meeting_summary.py`, `universal_loader.py`, `stock_report.py`) para entender patrones
+- Implementar una post-condition simple que valide el output y retryar manualmente al menos una vez
+
+**Semana 2 — Pipeline completo:**
+- Segunda AI Function que usa el output de la primera
+- Post-conditions en ambas funciones con autocorrección automática (no manual)
+- Script o notebook que ejecuta el pipeline de punta a punta
+- Dataset de prueba preparado (mínimo 3-5 inputs distintos para la demo)
+- Evidencia documentada de autocorrecciones: al menos 1 caso donde la post-condition atrapó un output malo y el modelo lo corrigió
+
+---
+
+## 6. Extensión (si hay más tiempo)
+
+- Implementar el pipeline con **funciones asíncronas**: que dos AI Functions corran en paralelo cuando no dependen una de la otra, y medir el impacto en tiempo total
+- Agregar una **tercera función** que consolide los outputs anteriores en un reporte final (PDF, markdown, o JSON estructurado)
+- Experimentar con **distintos modelos**: correr el mismo pipeline con GPT-4o-mini, Claude Haiku, y Llama3 via Ollama. Comparar calidad de outputs y tasa de activación de post-conditions
+- Medir y visualizar las **estadísticas de autocorrección**: tasa de fallo de post-conditions, número de retries por función, tiempo adicional por autocorrección
+
+---
+
+## 7. Stack sugerido
+
+**Opción principal:**
+
+| Componente | Herramienta |
+|---|---|
+| AI Functions | `strands-ai-functions` (ver README del repositorio) |
+| Modelo | GitHub Copilot Codex / GPT-4o-mini via API |
+| Python | 3.12+ |
+| Entorno | venv o conda |
+
+**Con AWS (opción corporativa):**
+
+| Componente | Servicio |
+|---|---|
+| Modelo | Amazon Bedrock — Claude Haiku o Titan (bajo costo) |
+| AI Functions | `strands-ai-functions` con backend configurado para Bedrock |
+| Acceso | Cuenta corporativa AWS — costo < $1 para el lab completo |
+
+**Alternativa local (costo $0):**
+
+| Componente | Herramienta |
+|---|---|
+| Modelo | Ollama + `llama3.1` o `mistral` (local, sin costo de API) |
+| AI Functions | `strands-ai-functions` con backend configurado para Ollama |
+
+---
+
+## 8. Criterios de evaluación
+
+| Criterio | Métrica mínima de éxito | Peso |
+|---|---|---|
+| **AI Functions implementadas** | Al menos 2 funciones definidas y ejecutadas exitosamente con el escenario elegido | 25% |
+| **Post-conditions funcionando** | Al menos 1 caso documentado donde la post-condition activó autocorrección y el output del retry fue correcto | 30% |
+| **Pipeline combinado** | Las 2 funciones se encadenan en un flujo ejecutable de punta a punta (sin intervención manual) | 20% |
+| **Calidad del output** | 3 de 5 inputs del dataset de prueba producen outputs correctos y útiles en ≤ 2 intentos | 15% |
+| **Documentación del aprendizaje** | El equipo puede explicar: qué es una AI Function, qué hace una post-condition, y cuándo el modelo autocorrigió vs. cuándo no pudo | 10% |
+
+---
+
+## 9. Riesgos y desafíos
+
+- **Post-conditions demasiado estrictas o demasiado laxas** — Si la post-condition es muy estricta (requiere precisión perfecta), el modelo va a hacer retries indefinidamente. Si es muy laxa, no detecta nada. Empezar con condiciones simples y binarias: "¿el output tiene todos los campos requeridos?" antes de agregar lógica compleja.
+- **El modelo ignora la estructura esperada** — Algunos modelos pequeños no respetan consistentemente el schema de output. Agregar few-shot examples en el prompt de la AI Function ayuda. Si el problema persiste, cambiar a un modelo más capaz.
+- **Scope creep del escenario elegido** — Los equipos tienden a querer resolver el problema completo desde el principio. Empezar con el input más simple posible (1 página de transcripción, 50 líneas de log) y escalar solo cuando el pipeline funciona de punta a punta.
+- **Setup del entorno consume tiempo** — La instalación de `strands-ai-functions` y la configuración del acceso al modelo puede tomar medio día. Reservar la primera sesión exclusivamente para esto, antes de escribir cualquier AI Function.
+- **Datos de prueba inadecuados** — Si los inputs de prueba son todos iguales o muy simples, la post-condition nunca se activa y no hay evidencia de autocorrección. Incluir deliberadamente inputs con ambigüedades, campos faltantes, o formato inconsistente.
+
+---
+
+## 10. Reflexión AI (completar al terminar el lab)
+
+Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+
+```
+## Reflexión AI — AI Functions — [Equipo] — [Escenario elegido]
+
+### Herramientas usadas
+| Herramienta | Para qué la usamos | Resultado (1-5) |
+|---|---|---|
+| Copilot / Codex | Escribir el código del pipeline y las post-conditions | |
+| Claude / ChatGPT | Diseñar los prompts de las AI Functions | |
+| Windsurf / Cursor | Explorar el repositorio y entender los ejemplos | |
+
+### Mayor impacto de IA en este lab
+[¿La IA ayudó más en escribir las AI Functions, en diseñar las post-conditions, en
+debuggear los retries, o en otro punto? ¿La IA que usaste para construir el lab también
+usó AI Functions para hacerlo?]
+
+### Momento donde la IA no ayudó o introdujo problemas
+[¿El modelo elegido para las AI Functions no respetaba el schema de output? ¿La IA que
+te asistió generó post-conditions que nunca se activaban? ¿Hubo un loop infinito de
+retries que no terminaba?]
+
+### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
+[ ] Sí — describir: ___
+[ ] No, solo aceleró tareas existentes
+
+### Recomendación para el próximo equipo
+[ej: "Empezá con el escenario más simple posible y un solo input de prueba hasta que
+el primer retry funcione. Escalar recién cuando tenés evidencia de autocorrección real,
+no antes."]
+```
