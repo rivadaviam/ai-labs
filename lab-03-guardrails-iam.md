@@ -1,7 +1,6 @@
 # Lab 03: AI Governance Scanner — Auditoría Automática de Compliance de IAM para Bedrock
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 2 semanas | **Extensión:** si hay más tiempo
 **Nivel:** Intermedio–Avanzado
 **Servicios AWS:** IAM, Amazon Bedrock
 
@@ -51,15 +50,15 @@ Una CLI `ai-governance-scan` que:
 
 ---
 
-## 5. Alcance del MVP (2 semanas)
+## 5. Alcance del MVP
 
-**Semana 1 — Scanner core:**
+**Primera fase — Scanner core:**
 - Setup del ambiente de prueba: script que crea 10-15 roles IAM con distintos niveles de compliance
 - Implementar el scanner: `list_roles` → filtrar por acceso a Bedrock → verificar condition key
 - Output a JSON con el estado de cada rol
 - Generación del texto de política correctiva para roles non-compliant
 
-**Semana 2 — Reporte HTML y validación:**
+**Segunda fase — Reporte HTML y validación:**
 - Template Jinja2 para el reporte HTML con resumen ejecutivo + tabla de roles + sección de fixes
 - Comando `--dry-run` que muestra los fixes sin aplicarlos
 - Soporte para `--region` para escanear una región específica
@@ -67,7 +66,7 @@ Una CLI `ai-governance-scan` que:
 
 ---
 
-## 6. Extensión (si hay más tiempo)
+## 6. Extensión
 
 - Escanear **múltiples cuentas** via AWS Organizations: iterar sobre todas las cuentas del org y generar un reporte consolidado
 - Modo `--auto-fix`: aplicar las políticas correctivas directamente con confirmación interactiva por rol
@@ -102,30 +101,21 @@ Costo estimado: **$0** — todas las operaciones son llamadas a IAM API sin cost
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito | Peso |
-|---|---|---|
-| **Precisión del scan** | Clasifica correctamente el 100% de los roles en el ambiente de prueba | 35% |
-| **Calidad de los fixes** | El JSON de política generado se puede aplicar con `aws iam put-role-policy` sin modificaciones, y el re-scan lo detecta como compliant | 30% |
-| **Cobertura** | Detecta permisos de Bedrock tanto en políticas inline como en políticas managed attached | 20% |
-| **Usabilidad** | Un nuevo miembro del equipo puede ejecutar el scan completo siguiendo solo el `--help`, sin documentación adicional | 15% |
-
----
-
-## 9. Riesgos y desafíos
-
-- **Permisos del usuario que corre el scan** — Necesita `iam:ListRoles`, `iam:ListRolePolicies`, `iam:GetRolePolicy`, `iam:ListAttachedRolePolicies`, `iam:GetPolicyVersion`. En cuentas corporativas, estos pueden estar restringidos. Verificar el día 1.
-- **Cuentas con muchos roles** — `list_roles` puede devolver miles de roles. Implementar paginación correctamente desde el principio o el scanner perderá roles silenciosamente.
-- **Policies con wildcards complejos** — `bedrock:*` o `bedrock:Invoke*` también otorgan acceso a `InvokeModel`. El parser debe cubrir estos casos para evitar falsos negativos de compliance.
-- **Múltiples formatos válidos de condition** — La condition puede usar `StringEquals`, `StringLike`, o `ArnEquals` con el ARN. El verificador debe reconocer todas las variantes válidas.
-- **Ambiente de prueba insuficientemente representativo** — Crear al menos 2-3 roles con múltiples políticas y estructura compleja para validar el scanner ante casos reales.
+- ¿Cómo se detecta acceso a `bedrock:InvokeModel` cuando la política usa wildcards como `bedrock:*` o `bedrock:Invoke*`? ¿Qué otros patrones equivalentes existen?
+- ¿Qué significa "compliant" en términos de IAM para Bedrock? ¿Cuándo un permiso amplio es aceptable vs. problemático?
+- ¿Cómo se genera una política de remediación que sea mínimamente permisiva sin romper el workload existente?
+- ¿Qué ocurre cuando `list_roles` devuelve miles de roles sin paginación? ¿Cómo se pierde información silenciosamente?
+- ¿Cuáles son las diferencias prácticas entre políticas inline y managed attached al momento de auditarlas programáticamente?
+- ¿Cómo se valida que una corrección de política generada por IA es segura antes de aplicarla en una cuenta real?
+- ¿Qué hace que un ambiente de prueba sea suficientemente representativo para confiar en los resultados del scanner?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — AI Governance Scanner — [Equipo]

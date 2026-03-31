@@ -1,7 +1,6 @@
 # Lab 11: KnowledgeBot — RAG con Feedback Loop y Calidad Medible
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 1 semana | **Extensión:** 1 mes
 **Nivel:** Intermedio–Avanzado
 
 ---
@@ -32,7 +31,7 @@ El equipo tiene 200+ páginas de documentación técnica interna (ADRs, runbooks
 
 ---
 
-## 5. Alcance del MVP (1 semana)
+## 5. Alcance del MVP
 
 - Pipeline de ingestion: procesar carpeta de archivos Markdown/PDF, chunking con overlap configurable, generación de embeddings con modelo local
 - Vector store: Chroma o FAISS (local, cero costo, sin setup de servidor)
@@ -45,7 +44,7 @@ El equipo tiene 200+ páginas de documentación técnica interna (ADRs, runbooks
 
 ---
 
-## 6. Extensión (1 mes)
+## 6. Extensión
 
 - Métricas de retrieval calculadas sobre el dataset de feedback acumulado: precision@k, MRR, NDCG
 - Detección automática de gaps: preguntas frecuentes con score bajo → auto-crear issues en Jira/Linear con título "Documentar: [pregunta frecuente]"
@@ -72,30 +71,21 @@ El equipo tiene 200+ páginas de documentación técnica interna (ADRs, runbooks
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito |
-|---|---|
-| Precision@3 del retrieval | ≥ 0.70 sobre el set de 30 preguntas de prueba del lab |
-| Calidad percibida | 15/20 respuestas reciben thumbs up de los miembros del equipo durante la semana de uso |
-| Fidelidad de citas | 90% de respuestas citan un documento real del corpus (verificado manualmente) |
-| Latencia | Respuesta end-to-end en < 8 segundos para preguntas típicas |
-| Detección de gaps | Identifica correctamente 3 de 5 preguntas plantadas que no tienen respuesta en la documentación |
-
----
-
-## 9. Riesgos y desafíos
-
-- **Chunking es el error #1 en RAG** — Chunks demasiado pequeños pierden contexto; chunks demasiado grandes reducen la precisión del retrieval. No hay una respuesta universal: hay que experimentar con chunk_size entre 256-1024 tokens y overlap entre 10-20%. Planificar tiempo para este tuning.
-- **El LLM alucina citas** — Inventa nombres de documentos o secciones que no existen. Solución: el prompt del sistema debe ser explícito: "Solo podés citar documentos que te proporciono en el contexto. Si la información no está en los documentos provistos, decí que no tenés información suficiente."
-- **Embedding model version mismatch** — Si se cambia el modelo de embeddings después de indexar, el vector store queda corrupto y los resultados son basura sin errores explícitos. Guardar el nombre del modelo como metadata del índice y verificarlo al inicializar.
-- **Setup de Slack bot consume 1-2 días** — Si el equipo no tiene permisos de workspace admin o no puede crear una app en Slack. Tener siempre implementada la CLI interactiva como fallback para no bloquear el progreso del lab.
+- ¿Cómo afecta el chunk_size y el overlap a la precisión del retrieval? ¿Por qué no hay una respuesta universal y cómo se encuentra el punto óptimo para un corpus específico?
+- ¿Qué es Precision@k y por qué es una métrica útil para evaluar retrieval? ¿Cuáles son sus limitaciones?
+- ¿Por qué alucina citas un LLM en un sistema RAG? ¿Cómo el system prompt puede reducir este comportamiento?
+- ¿Qué pasa cuando el modelo de embeddings cambia después de que el índice está construido? ¿Cómo se detecta y cómo se previene?
+- ¿Cómo se diseña un sistema RAG que reconozca cuando no tiene información suficiente vs. cuando tiene información parcial?
+- ¿Cuál es la diferencia práctica entre feedback implícito (thumbs up/down) y métricas automáticas para mejorar un RAG?
+- ¿Qué hace que una pregunta no tenga respuesta en la documentación aunque el tema esté relacionado?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — KnowledgeBot — [Equipo]

@@ -1,6 +1,6 @@
 # AI Labs — Programa Práctico de IA para Equipos de Desarrollo
 
-Labs de producto para equipos de 2–3 personas. Cada lab construye algo real, demostrable, y anclado en un patrón de IA vigente. El programa cubre tanto el **uso de IA para construir** como el **aprendizaje de patrones de GenAI** aplicados a problemas de desarrollo real.
+Labs prácticos para equipos de 2–3 personas. El fin es el aprendizaje — construir algo es el medio. Cada lab está anclado en un patrón de IA vigente y cubre tanto el **uso de IA para construir** como el **aprendizaje de patrones de GenAI** aplicados a problemas de desarrollo real.
 
 📋 **Criterios y filosofía del programa:** [CRITERIA.md](CRITERIA.md)
 
@@ -11,43 +11,31 @@ Labs de producto para equipos de 2–3 personas. Cada lab construye algo real, d
 | Parámetro | Valor |
 |---|---|
 | Equipos | 2–3 personas |
-| Duración por lab | 2–3 semanas |
-| Dedicación | ~4 horas/semana (~8-12 hs totales) |
-| Entregable | Demo funcional de 15 min + lecciones aprendidas |
+| Duración por lab | 3 semanas |
+| Dedicación | ~4 horas/semana/persona (24–36 hs totales) |
+| Cierre | Show & tell informal del proceso, lo construido, y posibles mejoras |
 | Herramientas AI | Copilot, Codex, Windsurf (corporativo) + Claude (personal) |
 
-Cada lab tiene 10 secciones: nombre, skill, problema, producto, MVP, extensión, stack, criterios de evaluación, riesgos, y reflexión AI.
+Cada lab tiene 9 secciones: nombre, skill, problema, producto, MVP, extensión, stack, terreno a explorar, y reflexión AI.
 
 ---
 
 ## Labs Disponibles
 
-### Introductorios
-
-| # | Lab | Skill | Artefacto | Tiempo |
-|---|-----|-------|-----------|--------|
-| 00 | [AI Functions — Tu Primer Prototipo Agentico](lab-00-AI-functions.md) | AI Functions + Post-conditions + Agentic flows | Script / notebook | 2–3 sem |
-
-### Patrones de GenAI con AWS Bedrock
-
-| # | Lab | Skill | Artefacto AWS | Tiempo |
-|---|-----|-------|--------------|--------|
-| 01 | [RAG Health Monitor](lab-01-rag-debugging.md) | Observabilidad de pipelines RAG | Lambda + CloudWatch dashboard | 2 sem |
-| 02 | [Guardrails Calibration Tool](lab-02-guardrails-tracing.md) | Evaluación de guardrails (FP/FN) | CLI + reporte HTML | 2 sem |
-| 03 | [AI Governance Scanner](lab-03-guardrails-iam.md) | AI governance + IAM compliance | CLI audit + fixes listos | 2 sem |
-| 04 | [Live KB Sync Pipeline](lab-04-kb-sync-eventdriven.md) | Event-driven + Knowledge Bases | CDK stack + test harness | 2 sem |
-| 05 | [Semantic Search Benchmark](lab-05-vector-search-s3.md) | Benchmarking de vector search | Script + reporte comparativo | 2 sem |
-| 06 | [Resilient LLM Gateway](lab-06-cross-region-inference.md) | Resiliencia + cross-region inference | FastAPI proxy + métricas | 2 sem |
-
-### Patrones de GenAI agnósticos de cloud
-
-| # | Lab | Skill | Artefacto | Tiempo |
-|---|-----|-------|-----------|--------|
-| 07 | [CodeReviewer AI](lab-07-code-reviewer-ai.md) | LLM workflows + structured output | GitHub Action | 2 sem |
-| 08 | [PromptBench](lab-08-prompt-bench.md) | Prompt evaluation / LLM-as-judge | CLI + reporte HTML | 2 sem |
-| 09 | [AgentOps](lab-09-agentops.md) | AI Agents + tool use (ReAct) | CLI interactiva | 2 sem |
-| 10 | [DocSense](lab-10-docsense.md) | Structured extraction + docs | CLI + API REST | 2 sem |
-| 11 | [KnowledgeBot](lab-11-knowledge-bot.md) | RAG con evaluación y feedback loop | Slack bot / CLI | 2 sem |
+| # | Lab | Skill | Artefacto |
+|---|-----|-------|-----------|
+| 00 | [AI Functions — Tu Primer Prototipo Agentico](lab-00-AI-functions.md) | AI Functions + Agentic flows | Script / notebook |
+| 01 | [RAG Health Monitor](lab-01-rag-debugging.md) | Observabilidad de pipelines RAG | Lambda + CloudWatch dashboard |
+| 02 | [Guardrails Calibration Tool](lab-02-guardrails-tracing.md) | Evaluación de guardrails (FP/FN) | CLI + reporte HTML |
+| 03 | [AI Governance Scanner](lab-03-guardrails-iam.md) | AI governance + IAM compliance | CLI audit + fixes listos |
+| 04 | [Live KB Sync Pipeline](lab-04-kb-sync-eventdriven.md) | Event-driven + Knowledge Bases | CDK stack + test harness |
+| 05 | [Semantic Search Benchmark](lab-05-vector-search-s3.md) | Benchmarking de vector search | Script + reporte comparativo |
+| 06 | [Resilient LLM Gateway](lab-06-cross-region-inference.md) | Resiliencia + cross-region inference | FastAPI proxy + métricas |
+| 07 | [CodeReviewer AI](lab-07-code-reviewer-ai.md) | LLM workflows + structured output | GitHub Action |
+| 08 | [PromptBench](lab-08-prompt-bench.md) | Prompt evaluation / LLM-as-judge | CLI + reporte HTML |
+| 09 | [AgentOps](lab-09-agentops.md) | AI Agents + tool use (ReAct) | CLI interactiva |
+| 10 | [DocSense](lab-10-docsense.md) | Structured extraction + docs | CLI + API REST |
+| 11 | [KnowledgeBot](lab-11-knowledge-bot.md) | RAG con evaluación y feedback loop | Slack bot / CLI |
 
 ---
 
@@ -55,11 +43,11 @@ Cada lab tiene 10 secciones: nombre, skill, problema, producto, MVP, extensión,
 
 Cada lab incluye:
 - **Problema** — Escenario realista de un equipo de desarrollo
-- **Producto objetivo** — Qué se construye exactamente + cómo es la demo de 15 min
-- **MVP (2 semanas)** — Qué se espera lograr con la dedicación del programa
-- **Stack** — Siempre incluye opción AWS y opción open-source/local
-- **Criterios de evaluación** — Tabla con métricas medibles
-- **Reflexión AI** — Template para documentar cómo usaron IA durante el lab
+- **Producto objetivo** — Qué se puede construir y cómo se muestra en el show & tell
+- **MVP (3 semanas)** — Qué se puede lograr a ~4 hs/sem/persona
+- **Stack** — Solo se prescribe si la tecnología es parte del aprendizaje; si no, el equipo elige
+- **Terreno a explorar** — Conceptos clave, fenómenos esperables, y preguntas que el lab debería responder
+- **Reflexión AI** — Template opcional para documentar cómo usaron IA durante el lab
 
 Los labs son **independientes**: cualquier equipo puede hacer cualquier lab en cualquier orden.
 
@@ -67,22 +55,9 @@ Los labs son **independientes**: cualquier equipo puede hacer cualquier lab en c
 
 ## Sugerencias de Ruta
 
-### Para empezar desde cero con IA
-→ **Lab 00** (AI Functions) como punto de entrada, luego cualquier lab de patrones
-
-### Track AWS / Bedrock
-→ Labs **01 → 04 → 05** (RAG completo: health, sync, search)
-→ Labs **02 → 03** (Seguridad y governance)
-→ Lab **06** (Resiliencia en producción)
-
-### Track agnóstico de cloud
-→ Labs **07 → 08** (LLM workflows + evaluación)
-→ Labs **09 → 11** (Agentes + RAG avanzado)
-→ Lab **10** (Extracción de documentos)
-
-### Por tipo de problema
 | Quiero aprender... | Labs sugeridos |
 |---|---|
+| Mis primeros pasos con IA | 00 |
 | Cómo monitorear y debuggear AI en producción | 01, 02 |
 | Cómo gobernar el uso de IA en la empresa | 03, 02 |
 | Cómo mantener documentación IA actualizada | 04, 11 |

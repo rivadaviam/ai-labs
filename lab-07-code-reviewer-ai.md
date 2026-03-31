@@ -1,7 +1,6 @@
 # Lab 07: CodeReviewer AI — El Revisor que Nunca Duerme
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 1 semana | **Extensión:** 1 mes
 **Nivel:** Intermedio
 
 ---
@@ -32,7 +31,7 @@ El equipo recibe PRs tarde en el día. Los reviewers humanos están ocupados o e
 
 ---
 
-## 5. Alcance del MVP (1 semana)
+## 5. Alcance del MVP
 
 - GitHub Action funcional que se activa en eventos `pull_request` (opened, synchronize)
 - Extrae el diff del PR usando la GitHub REST API
@@ -44,7 +43,7 @@ El equipo recibe PRs tarde en el día. Los reviewers humanos están ocupados o e
 
 ---
 
-## 6. Extensión (1 mes)
+## 6. Extensión
 
 - Sistema de feedback: los developers marcan comentarios como "útil" / "falso positivo" via emoji reaction en GitHub
 - Los feedbacks acumulados alimentan un dataset de evaluación para medir precision del reviewer
@@ -69,30 +68,21 @@ El equipo recibe PRs tarde en el día. Los reviewers humanos están ocupados o e
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito |
-|---|---|
-| Cobertura funcional | El Action corre sin errores en el 100% de los PRs de prueba |
-| Detección de issues | Al menos 3 de 5 bugs plantados son detectados correctamente |
-| Calidad de comentarios | Evaluación ciega de 2 reviewers humanos: promedio ≥ 3.5/5 |
-| Latencia | Comentarios publicados en < 90 segundos de abrir el PR |
-| Output estructurado | 100% de respuestas del LLM parseadas como JSON válido (sin fallback a texto libre) |
-
----
-
-## 9. Riesgos y desafíos
-
-- **Diff demasiado grande para el context window** — Los equipos suelen ignorar esto y se encuentran con errores de token limit o reviews de baja calidad. Solución: chunking por archivo, no mandar el diff completo.
-- **El LLM inventa números de línea** — Si el prompt no incluye el formato exacto del diff unificado, el modelo alucinará line numbers inválidos y los comentarios no se publican. El prompt debe mostrar el formato `@@ -L,S +L,S @@` y pedir referencias exactas.
-- **Rate limits de GitHub API** — Publicar muchos comentarios rápido puede resultar en rate limiting temporal. Agregar retry con exponential backoff.
-- **Prompt engineering subestimado** — Los equipos esperan calidad alta en el primer intento. La realidad: se necesitan 2-3 iteraciones del prompt para reducir comentarios vagos o irrelevantes. Planificar ese tiempo.
+- ¿Qué pasa cuando el diff supera el context window del modelo? ¿Cómo cambia la estrategia según si el límite se supera en un archivo vs. en el PR completo?
+- ¿Por qué el LLM alucina números de línea y qué información en el prompt reduce ese comportamiento?
+- ¿Cuántas iteraciones de prompt se necesitan típicamente para que los comentarios sean útiles? ¿Qué criterios definen un comentario "útil" vs. ruido?
+- ¿Cómo se mide la calidad de un código review automático? ¿Qué hace que un comentario sea accionable?
+- ¿Cómo afecta el modelo elegido (local vs. API, tamaño) a la consistencia del output estructurado JSON?
+- ¿Qué categorías de issues detecta bien un LLM y cuáles detecta mal comparado con un revisor humano?
+- ¿Qué pasa cuando se publican muchos comentarios al mismo tiempo en la GitHub API?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — CodeReviewer AI — [Equipo]

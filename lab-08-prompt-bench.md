@@ -1,7 +1,6 @@
 # Lab 08: PromptBench — Evaluación Sistemática de Prompts de Producción
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 1 semana | **Extensión:** 1 mes
 **Nivel:** Intermedio
 
 ---
@@ -32,7 +31,7 @@ El equipo tiene un feature de IA en producción (clasificador de tickets de sopo
 
 ---
 
-## 5. Alcance del MVP (1 semana)
+## 5. Alcance del MVP
 
 - CLI con comando `compare` que acepta dos prompts (archivos `.txt`) + dataset + modelo de evaluación
 - Dataset format: JSONL con campos `input`, `expected`, `category` (opcional)
@@ -43,7 +42,7 @@ El equipo tiene un feature de IA en producción (clasificador de tickets de sopo
 
 ---
 
-## 6. Extensión (1 mes)
+## 6. Extensión
 
 - Modo A/B testing en producción: dividir tráfico entre prompt_v1 y prompt_v2 con logging automático, para evaluar con datos reales
 - Dashboard web (Streamlit) con historial de evaluaciones y evolución de métricas a lo largo del tiempo (cada vez que se corre una evaluación queda guardada)
@@ -69,30 +68,21 @@ El equipo tiene un feature de IA en producción (clasificador de tickets de sopo
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito |
-|---|---|
-| Reproducibilidad | La misma comparación ejecutada dos veces produce resultados con < 5% de variación |
-| Velocidad | Dataset de 100 ejemplos evaluado en < 3 minutos |
-| Calibración del LLM-judge | El judge concuerda con evaluación humana en ≥ 80% de los casos (usando el dataset de calibración del lab) |
-| Detección de regresiones | Identifica correctamente 4 de 5 regresiones plantadas en el dataset de prueba |
-| Legibilidad del reporte | Un PM sin background técnico puede leer el reporte HTML y concluir qué prompt es mejor y por qué |
-
----
-
-## 9. Riesgos y desafíos
-
-- **El LLM-as-judge no es objetivo** — Tiende a favorecer respuestas que suenan más elaboradas independientemente de si son correctas. Solución: el prompt del judge debe incluir rubrica explícita con criterios binarios o escala Likert con descripciones concretas de cada nivel.
-- **Dataset de evaluación de mala calidad** — Los equipos crean 10 ejemplos todos del mismo tipo y las métricas no son representativas. Recomendación: usar el dataset base de 50 ejemplos balanceados por categoría que provee el lab.
-- **Llamadas en paralelo superan rate limits** — Cuando el dataset es grande y el modelo es de API paga. Solución: implementar semaphore con asyncio para limitar concurrencia configurable por CLI flag.
-- **Métricas contradictorias** — Exact match dice que v2 es peor pero LLM-judge dice que es mejor. Los equipos no saben cuál creer. Hay que definir desde el principio cuál es la métrica primaria según el tipo de tarea.
+- ¿Cuáles son los sesgos conocidos de un LLM-as-judge? ¿Cómo afecta la elaboración de la respuesta vs. su corrección al score que asigna?
+- ¿Cómo se calibra un LLM-judge? ¿Qué significa que concuerde con evaluación humana en un 80%? ¿Qué dice sobre el 20% restante?
+- ¿Qué pasa cuando exact match y LLM-judge dan resultados contradictorios? ¿Cómo decidir cuál creer?
+- ¿Qué hace que un dataset de evaluación de prompts sea representativo? ¿Cómo afecta la distribución de casos a las métricas finales?
+- ¿Cómo se gestiona la concurrencia en llamadas a APIs de LLM sin superar rate limits?
+- ¿Qué información necesita un reporte de evaluación para que un PM pueda tomar una decisión sobre qué prompt usar en producción?
+- ¿Cuándo la reproducibilidad de los resultados falla? ¿Qué factores introducen variación entre dos runs del mismo benchmark?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — PromptBench — [Equipo]

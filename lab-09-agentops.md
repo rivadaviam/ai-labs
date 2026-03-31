@@ -1,7 +1,6 @@
 # Lab 09: AgentOps — Agente Autónomo de Diagnóstico de Infraestructura
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 1 semana | **Extensión:** 1 mes
 **Nivel:** Intermedio–Avanzado
 
 ---
@@ -32,7 +31,7 @@ Cuando hay un incidente de producción a las 2am, el engineer de guardia necesit
 
 ---
 
-## 5. Alcance del MVP (1 semana)
+## 5. Alcance del MVP
 
 - CLI con comando `diagnose` que acepta descripción del problema en lenguaje natural
 - Set de 6–8 tools implementadas con datos simulados realistas: `get_recent_logs(service, minutes)`, `get_db_query_times(endpoint)`, `get_memory_usage(service)`, `get_active_connections()`, `get_recent_deploys(hours)`, `run_health_check(service)`
@@ -43,7 +42,7 @@ Cuando hay un incidente de producción a las 2am, el engineer de guardia necesit
 
 ---
 
-## 6. Extensión (1 mes)
+## 6. Extensión
 
 - Conectar tools reales: queries a PostgreSQL, llamadas a Prometheus/Grafana API, parseo de logs de archivos o CloudWatch
 - Modo "runbook automático": si el agente identifica el problema con confianza > 0.85, puede proponer y (con confirmación explícita del usuario) ejecutar la remediación
@@ -69,30 +68,21 @@ Cuando hay un incidente de producción a las 2am, el engineer de guardia necesit
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito |
-|---|---|
-| Precisión diagnóstica | 4 de 5 escenarios de prueba del lab producen un reporte con la causa probable correcta |
-| Eficiencia | Promedio de < 7 tool calls por diagnóstico exitoso (sin loops redundantes) |
-| Razonamiento transparente | El equipo puede leer el trace y explicar por qué el agente tomó cada decisión |
-| Control de loops | El agente nunca excede el límite de pasos en ningún escenario de prueba, incluyendo inputs ambiguos |
-| Calidad del reporte | Evaluación ciega de 3 engineers: reporte comprensible y accionable en ≥ 80% de los casos |
-
----
-
-## 9. Riesgos y desafíos
-
-- **El agente entra en loops** — Llama la misma tool con los mismos parámetros repetidamente. Solución: incluir el historial completo de tool calls en el contexto y penalizar explícitamente la repetición en el system prompt.
-- **El agente alucina resultados de tools** — En lugar de llamar la tool, el LLM "inventa" el resultado. Solución: system prompt muy explícito de que DEBE usar tools para obtener datos, nunca asumir o inventar valores.
-- **Function calling poco confiable en modelos pequeños** — Algunos modelos no generan JSON válido para tool calls consistentemente. Solución: usar modelos con soporte probado (llama3.1, mistral-nemo) o agregar validación de schema + retry automático.
-- **Scope creep hacia tools reales** — Los equipos quieren conectar herramientas reales desde el día 1 y se pierden en problemas de infraestructura. Las tools con datos simulados pero realistas son suficientes para el MVP y permiten enfocarse en el agente.
+- ¿Cómo se manifiesta un loop en un agente ReAct? ¿Qué patrones en el trace indican que el agente está repitiendo pasos sin avanzar?
+- ¿Qué hace que un LLM alucine resultados de tools en lugar de llamarlas? ¿Cómo el system prompt puede influir en este comportamiento?
+- ¿Cómo se mide la eficiencia de un agente? ¿Cuándo más tool calls indica confusión vs. complejidad legítima del problema?
+- ¿Qué información de una tool es necesaria en el contexto del agente vs. qué información es ruido que afecta las decisiones?
+- ¿Cómo varía el comportamiento del agente entre modelos? ¿Qué capacidades son críticas para function calling confiable?
+- ¿Qué hace que el razonamiento de un agente sea legible en el trace? ¿Cuándo es opaco y por qué?
+- ¿Cuándo las tools con datos simulados son suficientes para validar el agente y cuándo no lo son?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — AgentOps — [Equipo]

@@ -1,0 +1,85 @@
+# ── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.pyre/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env.bak
+.conda/
+
+# ── Environment & Secrets ───────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.yaml
+secrets.json
+
+# AWS
+.aws/
+aws-credentials
+
+# ── Streamlit ───────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ── Data & Artifacts ────────────────────────────────────────
+data/
+*.pdf
+*.csv
+*.jsonl
+*.parquet
+*.sqlite
+*.db
+*.faiss
+*.pkl
+*.pickle
+chroma_db/
+vector_store/
+embeddings/
+
+# ── Jupyter ─────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Docker ──────────────────────────────────────────────────
+.docker/
+
+# ── Node (tooling) ──────────────────────────────────────────
+node_modules/
+.npm/
+.pnpm-store/
+
+# ── OS ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Editors ─────────────────────────────────────────────────
+.vscode/
+.cursor/
+.idea/
+*.swp
+*.swo
+
+# ── Logs & Temp ─────────────────────────────────────────────
+*.log
+logs/
+tmp/
+temp/
+.cache/

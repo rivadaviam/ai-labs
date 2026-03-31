@@ -1,7 +1,6 @@
 # Lab 04: Live Knowledge Base Sync Pipeline
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 2 semanas | **Extensión:** si hay más tiempo
 **Nivel:** Intermedio
 **Servicios AWS:** Bedrock Knowledge Bases, S3, SQS, Lambda, CloudWatch, CDK/SAM
 
@@ -66,7 +65,7 @@ Más un test harness Python (`test_sync.py`) que valida el pipeline end-to-end m
 
 ---
 
-## 5. Alcance del MVP (2 semanas)
+## 5. Alcance del MVP
 
 | Semana | Foco | Entregables |
 |--------|------|-------------|
@@ -77,7 +76,7 @@ Más un test harness Python (`test_sync.py`) que valida el pipeline end-to-end m
 
 ---
 
-## 6. Extensión (si hay más tiempo)
+## 6. Extensión
 
 - **Batch efficiency:** Agrupar múltiples eventos S3 en un solo `StartIngestionJob` con SQS batching. Medir si reduce el número de jobs sin aumentar latencia.
 - **Alarma de DLQ:** CloudWatch alarm cuando la DLQ tenga mensajes. Simular un fallo del Lambda y verificar que la alarma se dispara.
@@ -115,31 +114,21 @@ El test harness es prácticamente idéntico — solo cambia el cliente de ingest
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito | Peso |
-|---|---|---|
-| **Pipeline funcional** | Stack deploya sin errores. Documento subido a S3 aparece en KB sin intervención manual. | 30% |
-| **Latencia medida** | Test harness reporta latencia de INSERT y DELETE con resultados reproducibles (dos runs en el mismo orden de magnitud). | 25% |
-| **Correctness del delete** | Cuando un doc es borrado de S3, la KB deja de citarlo en respuestas dentro de un tiempo razonable. | 20% |
-| **Observabilidad** | CloudWatch Logs muestran el ciclo de vida de cada evento: recibido, procesado, job iniciado. DLQ visible. | 15% |
-| **IaC reproducible** | Otro equipo puede hacer `cdk deploy` sin configuración manual adicional. README con instrucciones. | 10% |
-
----
-
-## 9. Riesgos y desafíos
-
-- **Latencia inherente de ingestion jobs** — Los `StartIngestionJob` pueden tardar entre 30 segundos y varios minutos. Esto es normal. El test harness debe tener un timeout configurable (default: 5 minutos) para no fallar con documentos grandes.
-- **Permisos IAM en entorno corporativo** — El Lambda necesita `bedrock:StartIngestionJob`, `bedrock:DeleteKnowledgeBaseDocuments`, `s3:GetObject`, `sqs:ReceiveMessage`. Iniciar el proceso de permisos en el día 1.
-- **Modelo de embeddings no habilitado** — Verificar en Bedrock → Model Access que `amazon.titan-embed-text-v2:0` o `cohere.embed-english-v3` estén activos antes de crear la KB.
-- **La KB no es tiempo real** — El pipeline reduce la latencia de "semanal" a "minutos", no a sub-segundo. Este es un resultado válido y valioso que debe comunicarse claramente en la demo.
-- **Costo de ingestion jobs con muchos re-runs** — Usar documentos pequeños (< 5 páginas) para las pruebas del test harness.
+- ¿Qué tan "en tiempo real" puede ser una Knowledge Base de Bedrock? ¿Cuál es la latencia mínima realista entre un cambio en S3 y que esté disponible en la KB?
+- ¿Cómo se observa el ciclo de vida completo de un evento de sync? ¿Qué pasa si el ingestion job falla silenciosamente?
+- ¿Qué hace que un delete sea más difícil de implementar correctamente que un insert en un pipeline event-driven?
+- ¿Cuál es el rol de una Dead Letter Queue en esta arquitectura? ¿Qué información necesitan los logs para diagnosticar un fallo?
+- ¿Cómo cambia la estrategia de testing cuando hay latencia inherente en el sistema bajo prueba?
+- ¿Qué diferencia hay entre "el documento está en S3" y "el documento es recuperable en la KB"? ¿Qué sucede en el medio?
+- ¿Cómo afecta el tamaño del documento y la cantidad de re-runs al costo del lab?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — Live KB Sync Pipeline — [Equipo]

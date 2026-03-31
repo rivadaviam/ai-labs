@@ -1,13 +1,13 @@
 # Criterios del Programa de Labs de IA
 
 > Fuente de verdad del programa. Se actualiza a medida que evoluciona.
-> Última actualización: 2026-03-30
+> Última actualización: 2026-03-31
 
 ---
 
 ## Filosofía del Programa
 
-Los labs no enseñan teoría ni preparan para certificaciones. Están diseñados para que equipos pequeños aprendan **haciendo**: construyendo algo real, con herramientas de IA reales, resolviendo problemas que importan hoy.
+Los labs no enseñan teoría ni preparan para certificaciones. Están diseñados para que equipos pequeños aprendan **haciendo**: el fin es el aprendizaje, no el producto. Construir algo es el medio — el proceso de tomar decisiones, encontrar obstáculos, y resolverlos con IA es lo que importa.
 
 Hay dos ejes de aprendizaje simultáneos:
 
@@ -23,13 +23,12 @@ El segundo eje es tan importante como el primero. Cada lab es una oportunidad pa
 | Parámetro | Valor |
 |---|---|
 | **Tamaño del equipo** | 2–3 personas |
-| **Duración por lab** | 2–3 semanas |
-| **Dedicación semanal** | ~4 horas por semana |
-| **Esfuerzo total estimado** | 8–12 horas por equipo por lab |
+| **Duración por lab** | 3 semanas |
+| **Dedicación semanal** | ~4 horas por semana por persona |
+| **Esfuerzo total estimado** | 24–36 horas por equipo por lab |
 | **Labs** | Independientes (cualquier orden, equipos distintos pueden hacer labs distintos en paralelo) |
 | **Nivel de participantes** | Mixto (no asumir experiencia previa con LLMs) |
-| **Resultado mínimo** | Demo funcional + lecciones aprendidas |
-| **Presentación** | ~15 minutos por equipo |
+| **Cierre del lab** | Show & tell informal del proceso de aprendizaje, lo construido, y posibles mejoras |
 
 ---
 
@@ -52,7 +51,8 @@ Herramientas adicionales que los participantes pueden incorporar por cuenta prop
 - **AWS corporativo** — los participantes tienen acceso a una cuenta corporativa
 - **Uso responsable** — el costo de AWS por lab debe ser mínimo (idealmente < $5–10 por equipo)
 - Priorizar servicios con capa gratuita o pricing por uso antes que recursos con costo fijo (ej: S3 Vectors antes que un cluster de OpenSearch)
-- Para equipos sin acceso a servicios específicos de AWS: siempre debe existir una alternativa open-source/local (Ollama, Chroma, FAISS, etc.)
+- AWS es preferido pero no obligatorio. Los labs son válidos con stack cloud-agnostic.
+- Para equipos sin acceso a servicios específicos de AWS: alternativas open-source/local son igualmente válidas (Ollama, Chroma, FAISS, etc.)
 
 ---
 
@@ -97,16 +97,11 @@ Los participantes practican y documentan el uso de IA en distintas fases:
 
 ## El Loop de Mejora
 
-Cada lab incluye una **Sección de Reflexión AI** que los equipos completan al terminar. Tiene dos formatos:
+El cierre de cada lab es un **show & tell informal**: el equipo comparte el proceso de aprendizaje, lo que construyó, y posibles mejoras o continuaciones. No hay formato obligatorio ni entregable previo.
 
-### Durante la presentación (3-5 min al final de la demo de 15 min)
-El equipo responde brevemente:
-- ¿Qué herramientas de IA usaron y en qué fases?
-- ¿En qué momento la IA fue más útil? ¿En qué momento no ayudó?
-- ¿Qué haría diferente el equipo en el próximo lab respecto al uso de IA?
+La **Sección de Reflexión AI** incluida en cada lab es un template opcional — no es un pre-requisito del show & tell. Si los resultados del equipo son prometedores o generan aprendizajes relevantes para el programa, se puede acordar un write-up estructurado posterior.
 
-### Documento de lecciones (template incluido en cada lab)
-Template estructurado que cada equipo completa y se comparte con todos los equipos del programa. Sirve como input para mejorar el diseño de labs futuros.
+El template de reflexión (incluido en cada lab) sirve como punto de partida si el equipo decide documentar formalmente:
 
 ```
 ## Reflexión AI — [Nombre del Lab] — [Equipo]
@@ -131,8 +126,6 @@ Template estructurado que cada equipo completa y se comparte con todos los equip
 [1-2 oraciones: qué consejo darías sobre cómo usar IA en este lab específico]
 ```
 
-Estos documentos se consolidan entre ciclos del programa para evolucionar los labs.
-
 ---
 
 ## Criterios de un Buen Lab
@@ -140,21 +133,20 @@ Estos documentos se consolidan entre ciclos del programa para evolucionar los la
 ### Criterios de Diseño
 
 - [ ] **Producto objetivo claro** — se construye algo concreto y demostrable, no solo se lee código o se responden preguntas
-- [ ] **Alcanzable en 8–12 horas de equipo** — el MVP es completable en 2-3 semanas a ~4 hs/sem
+- [ ] **Alcanzable en 24–36 horas de equipo** — el MVP es completable en 3 semanas a ~4 hs/sem/persona
 - [ ] **Anclado en un patrón de IA real** — enseña un patrón vigente, no teoría ni prep de certificación
 - [ ] **Problema realista** — el escenario es creíble para equipos de software, DevOps o técnicos
 - [ ] **Requiere decisiones técnicas** — el equipo toma decisiones de diseño, no solo sigue instrucciones
 - [ ] **Comparable entre equipos** — distintos equipos pueden comparar sus resultados y aprendizajes
-- [ ] **AWS como opción preferida** — cuando hay servicios recientes de bajo costo que aportan valor al caso
-- [ ] **Alternativa open-source siempre disponible** — para cuando AWS no es accesible o el costo no se justifica
+- [ ] **Stack al servicio del concepto** — solo se prescribe una tecnología específica si aprenderla es parte del objetivo del lab; en otro caso el equipo elige libremente
+- [ ] **AWS preferido pero no obligatorio** — cuando hay servicios relevantes de bajo costo que forman parte del aprendizaje
 - [ ] **Costo AWS mínimo** — los recursos creados no deben exceder ~$5–10 por equipo para el MVP
 
-### Criterios de Evaluación de Cada Lab
+### Criterios de Cierre de Cada Lab
 
-- [ ] **Demo funcional** — el producto corre y puede demostrarse en 15 minutos
-- [ ] **Métricas de calidad específicas** — al menos 3 métricas medibles en la tabla de evaluación del lab
-- [ ] **Lecciones aprendidas documentadas** — el equipo completa el template de Reflexión AI
-- [ ] **Decisiones técnicas justificadas** — el equipo puede explicar por qué eligió su stack y su arquitectura
+- [ ] **Show & tell realizado** — el equipo presentó su proceso de aprendizaje, lo construido (si aplica), y posibles continuaciones
+- [ ] **Decisiones técnicas justificadas** — el equipo puede explicar las elecciones que tomó y qué aprendió de ellas
+- [ ] **Reflexión AI opcional** — si el equipo decide documentarla, usa el template incluido en el lab
 
 ### Anti-criterios
 
@@ -169,38 +161,38 @@ Estos documentos se consolidan entre ciclos del programa para evolucionar los la
 
 ## Estructura Estándar de un Lab
 
-Cada lab tiene estas **10 secciones** (la sección 10 es el loop de mejora):
+Cada lab tiene estas **9 secciones**:
 
 | # | Sección | Descripción |
 |---|---|---|
 | 1 | **Nombre** | Claro y atractivo |
 | 2 | **Skill principal** | Patrón de IA que se explora |
 | 3 | **Problema a resolver** | Escenario concreto y realista |
-| 4 | **Producto objetivo** | Qué se construye + descripción de la demo de 15 min |
-| 5 | **Alcance del MVP** | Qué se logra en la primera fase (semana 1–2) |
-| 6 | **Extensión** | Cómo evoluciona si el equipo tiene más tiempo |
-| 7 | **Stack sugerido** | Tecnologías con opción AWS + opción open-source |
-| 8 | **Criterios de evaluación** | Tabla con métricas medibles |
-| 9 | **Riesgos y desafíos** | Dónde los equipos típicamente se traban |
-| 10 | **Reflexión AI** | Template de lecciones sobre uso de IA durante el lab |
+| 4 | **Producto objetivo** | Qué se construye + cómo se muestra en el show & tell |
+| 5 | **Alcance del MVP** | Qué se puede lograr en 3 semanas a 4 hs/sem/persona |
+| 6 | **Extensión** | Cómo evoluciona si el equipo decide continuar |
+| 7 | **Stack sugerido** | Solo se menciona si la tecnología es parte del aprendizaje; si no, el equipo elige |
+| 8 | **Terreno a explorar** | Conceptos clave, fenómenos esperables, y preguntas que el lab debería responder |
+| 9 | **Reflexión AI** | Template opcional de lecciones sobre uso de IA durante el lab |
 
 ---
 
 ## Alcance de los Labs Actuales
 
-| Lab | Nombre | Skill Principal | Estado |
-|---|---|---|---|
-| 01 | RAG Debugging | Embeddings, debugging silencioso | ⚠️ Formato tutorial (pre-criterios) |
-| 02 | Guardrails Tracing | Guardrail policies, tracing | ⚠️ Formato tutorial (pre-criterios) |
-| 03 | Guardrails IAM | IAM governance | ⚠️ Formato tutorial (pre-criterios) |
-| 04 | KB Event Sync | Event-driven, RAG sync | ⚠️ Formato tutorial (pre-criterios) |
-| 05 | S3 Vectors | Vector search, costo | ⚠️ Formato tutorial (pre-criterios) |
-| 06 | Cross-Region Inference | Throttling, throughput | ⚠️ Formato tutorial (pre-criterios) |
-| 07 | CodeReviewer AI | LLM workflows + structured output | ✅ Nuevo formato — falta sección 10 |
-| 08 | PromptBench | Prompt evaluation / LLM-as-judge | ✅ Nuevo formato — falta sección 10 |
-| 09 | AgentOps | AI Agents + tool use | ✅ Nuevo formato — falta sección 10 |
-| 10 | DocSense | Structured extraction | ✅ Nuevo formato — falta sección 10 |
-| 11 | KnowledgeBot | RAG con evaluación | ✅ Nuevo formato — falta sección 10 |
+| Lab | Nombre | Skill Principal |
+|---|---|---|
+| 00 | AI Functions | AI Functions + Agentic flows |
+| 01 | RAG Health Monitor | Observabilidad de pipelines RAG |
+| 02 | Guardrails Calibration Tool | Evaluación de guardrails (FP/FN) |
+| 03 | AI Governance Scanner | AI governance + IAM compliance |
+| 04 | Live KB Sync Pipeline | Event-driven + Knowledge Bases |
+| 05 | Semantic Search Benchmark | Benchmarking de vector search |
+| 06 | Resilient LLM Gateway | Resiliencia + cross-region inference |
+| 07 | CodeReviewer AI | LLM workflows + structured output |
+| 08 | PromptBench | Prompt evaluation / LLM-as-judge |
+| 09 | AgentOps | AI Agents + tool use (ReAct) |
+| 10 | DocSense | Structured extraction + docs |
+| 11 | KnowledgeBot | RAG con evaluación y feedback loop |
 
 ---
 
@@ -210,3 +202,4 @@ Cada lab tiene estas **10 secciones** (la sección 10 es el loop de mejora):
 |---|---|
 | 2026-03-30 | Creación inicial. Labs 01-06 identificados como derivados de certificación AWS. Labs 07-11 creados como labs de producto. |
 | 2026-03-30 | Criterios afinados: duración 2-3 sem / 4 hs/sem, herramientas Codex+Windsurf+Copilot+Claude, labs independientes, nivel mixto, AWS corporativo bajo costo, loop de mejora = demo + documento. |
+| 2026-03-31 | Filosofía reenfocada: el aprendizaje es el fin, construir es el medio. Duración fija 3 semanas. Entregable → show & tell informal. Reflexión AI opcional. Secciones "Criterios de evaluación" + "Riesgos" mergeadas en "Terreno a explorar". Stack prescriptivo solo si la tecnología es el aprendizaje. AWS preferido pero no obligatorio. Distinción de formato entre labs eliminada. |

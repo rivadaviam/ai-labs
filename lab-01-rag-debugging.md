@@ -1,7 +1,6 @@
 # Lab 01: RAG Health Monitor — Detección Automática de Degradación Silenciosa
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 2 semanas | **Extensión:** si hay más tiempo
 **Nivel:** Intermedio
 **Servicios AWS:** Bedrock, Lambda, EventBridge, CloudWatch, OpenSearch Serverless
 
@@ -60,16 +59,16 @@ Métricas que el sistema publica:
 
 ---
 
-## 5. Alcance del MVP (2 semanas)
+## 5. Alcance del MVP
 
-**Semana 1 — Infraestructura y lógica core:**
+**Primera fase — Infraestructura y lógica core:**
 - Provisionar OpenSearch Serverless o Bedrock Knowledge Base con un corpus de documentos de prueba (mínimo 50 documentos)
 - Implementar el Lambda con tres módulos: `embedding_consistency_check`, `canary_runner`, `metrics_publisher`
 - Definir un set de 5-10 canary queries con sus respuestas esperadas y scores de similarity umbral
 - Publicar las 4 métricas custom a CloudWatch
 - EventBridge rule configurada para ejecutar cada 5 minutos
 
-**Semana 2 — Observabilidad y validación:**
+**Segunda fase — Observabilidad y validación:**
 - Dashboard de CloudWatch con los 4 widgets principales
 - CloudWatch Alarm configurada sobre `EmbeddingModelConsistency` con threshold = 0
 - Alarm adicional sobre `RetrievalQualityScore` con threshold < 0.5
@@ -78,7 +77,7 @@ Métricas que el sistema publica:
 
 ---
 
-## 6. Extensión (si hay más tiempo)
+## 6. Extensión
 
 - Agregar detección de **index staleness**: comparar la fecha del último documento indexado contra un umbral configurable
 - Implementar **canary queries dinámicas**: generar variaciones automáticas con Bedrock para detectar edge cases sin queries hardcodeadas
@@ -116,31 +115,21 @@ Costo estimado: < $2 por equipo para todo el lab.
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito | Peso |
-|---|---|---|
-| **Detección del bug** | La alarma se dispara en < 5 minutos desde que se introduce el mismatch | 30% |
-| **Calidad de métricas** | Las 4 métricas se publican en cada ejecución durante 30 minutos sin errores | 25% |
-| **Precisión del score** | `RetrievalQualityScore` ≥ 0.70 en estado normal; ≤ 0.20 con mismatch | 20% |
-| **Dashboard legible** | Un observador externo entiende el estado del sistema en < 30 segundos | 15% |
-| **Runbook** | Documenta al menos 2 tipos de alarma con pasos concretos de remediación | 10% |
-
----
-
-## 9. Riesgos y desafíos
-
-- **OpenSearch Serverless tarda en provisionar** — Las collections pueden tardar 5-10 minutos. Reservar tiempo el primer día para provisionar antes de empezar a codear.
-- **Costos de Bedrock embeddings con corpus grande** — Si el corpus es grande, el costo de re-indexar puede superar el presupuesto. Usar un corpus de prueba pequeño (50-100 documentos).
-- **Canary queries poco representativas** — Si las queries son demasiado genéricas, el similarity score puede ser alto incluso con embeddings incorrectos. Diseñar queries específicas del dominio del corpus.
-- **IAM permissions del Lambda** — El Lambda necesita permisos para `bedrock:InvokeModel`, `aoss:APIAccessAll`, y `cloudwatch:PutMetricData`. Configurar el rol antes de empezar a codear.
-- **Falsos positivos en la alarma** — Con corpus pequeño o queries mal calibradas, la alarma puede dispararse sin bug real. Ajustar los thresholds durante la semana 1 antes de considerar el sistema estable.
+- ¿Qué métricas son realmente útiles para detectar degradación silenciosa de un pipeline RAG? ¿Cuál es la diferencia entre embedding consistency y retrieval quality?
+- ¿Qué hace que una canary query sea representativa del dominio? ¿Cómo saber si estás midiendo lo correcto vs. casos triviales que siempre pasan?
+- ¿Cómo se calibran los umbrales de alarma para minimizar falsos positivos sin perder detecciones reales?
+- ¿Qué pasa cuando el similarity score cae gradualmente vs. de golpe? ¿El sistema de monitoreo detecta ambos casos igual de bien?
+- ¿Cómo afecta el tamaño del corpus a los costos y a la viabilidad del monitoreo continuo?
+- ¿Qué información necesita un runbook para ser útil en una situación de incidente real vs. uno que no se usa?
+- ¿Por qué una alarma puede dispararse sin que haya un bug real? ¿Qué dice eso sobre la calibración del sistema?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — RAG Health Monitor — [Equipo]

@@ -1,7 +1,6 @@
 # Lab 05: Semantic Search Benchmark — S3 Vectors vs. Alternativas
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 2 semanas | **Extensión:** si hay más tiempo
 **Nivel:** Intermedio
 **Servicios AWS:** S3 Vectors, Amazon Bedrock (embeddings)
 
@@ -70,7 +69,7 @@ El reporte incluye:
 
 ---
 
-## 5. Alcance del MVP (2 semanas)
+## 5. Alcance del MVP
 
 | Semana | Foco | Entregables |
 |--------|------|-------------|
@@ -81,7 +80,7 @@ El reporte incluye:
 
 ---
 
-## 6. Extensión (si hay más tiempo)
+## 6. Extensión
 
 - **Tercer backend:** Agregar FAISS como comparador adicional (relevante para equipos con EC2 disponible)
 - **Recall con ground truth:** Si se pueden etiquetar manualmente los resultados correctos para 10 queries, calcular recall@5 y precision@5
@@ -118,31 +117,21 @@ Con esta alternativa el benchmark corre completamente local — útil para proto
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito | Peso |
-|---|---|---|
-| **Benchmark reproducible** | Dos runs producen métricas con < 15% de variación en p50 y p95 | 30% |
-| **Métricas de latencia correctas** | p50, p95, p99 calculados sobre mínimo 30 queries por backend; p99 > p95 > p50 siempre | 25% |
-| **Modelo de costo documentado** | La tabla incluye fuentes de pricing usadas y supuestos explícitos (dimensionalidad, storage vs. query) | 20% |
-| **Overlap de resultados** | La métrica de overlap está calculada y el equipo puede explicar su significado para la decisión | 15% |
-| **Decisión documentada** | El equipo presenta una recomendación clara con los datos como respaldo, no como opinión | 10% |
-
----
-
-## 9. Riesgos y desafíos
-
-- **S3 Vectors es un servicio nuevo** — La documentación puede estar incompleta. El SDK de boto3 requiere una versión específica. Verificar la versión mínima requerida el día 1 y fijarla en `requirements.txt`.
-- **Comparación justa entre backends** — Ambos backends deben recibir exactamente los mismos vectores (generados una sola vez y guardados en disco antes de indexar). Si los embeddings se generan dos veces, el overlap medido refleja ruido del proceso, no diferencias reales.
-- **Corpus de prueba poco representativo** — Usar documentos que se parezcan al dominio del problema real. Un corpus de artículos genéricos de Wikipedia no es representativo de documentación técnica.
-- **Latencia de red vs. latencia del backend** — La latencia medida en S3 Vectors incluye tiempo de red. Documentar desde dónde se corrió el benchmark (laptop local, EC2 en la misma región).
-- **Interpretación del overlap** — Un overlap del 87% puede ser excelente o preocupante dependiendo del dominio. Aclarar que el overlap mide consistencia entre backends, no calidad de los resultados.
+- ¿Qué significa que dos backends de vector search retornen resultados distintos para la misma query? ¿Cuándo importa el overlap y cuándo no?
+- ¿Cómo se mide la latencia de un sistema de búsqueda de forma reproducible? ¿Qué factores externos (red, región, carga) afectan los resultados?
+- ¿Qué diferencia hay entre p50, p95 y p99 en términos de experiencia de usuario? ¿Cuándo es relevante cada percentil?
+- ¿Cómo se construye un modelo de costos para vector search cuando los factores incluyen dimensionalidad, storage, y cantidad de queries?
+- ¿Qué hace que un corpus de prueba sea representativo del caso de uso real? ¿Qué pasa si no lo es?
+- ¿Por qué es importante que ambos backends indexen exactamente los mismos vectores para que la comparación sea válida?
+- ¿Cómo se traduce un benchmark técnico en una recomendación de decisión concreta para el equipo?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — Semantic Search Benchmark — [Equipo]

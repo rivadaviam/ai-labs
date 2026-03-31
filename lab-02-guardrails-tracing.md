@@ -1,7 +1,6 @@
 # Lab 02: Guardrails Calibration Tool — Medición Sistemática de Falsos Positivos
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 2 semanas | **Extensión:** si hay más tiempo
 **Nivel:** Intermedio
 **Servicios AWS:** Bedrock Guardrails (ApplyGuardrail API)
 
@@ -54,15 +53,15 @@ Y genera un **reporte HTML** con:
 
 ---
 
-## 5. Alcance del MVP (2 semanas)
+## 5. Alcance del MVP
 
-**Semana 1 — Dataset y core de la CLI:**
+**Primera fase — Dataset y core de la CLI:**
 - Crear el dataset de 40 test cases en `financial_qa.jsonl`, cubriendo las 4 políticas
 - Implementar el runner: leer JSONL, llamar `ApplyGuardrail` para cada caso, parsear la respuesta
 - Calcular la matriz de confusión por política
 - Output a JSON con todos los resultados
 
-**Semana 2 — Reporte HTML y flujo de calibración:**
+**Segunda fase — Reporte HTML y flujo de calibración:**
 - Template Jinja2 para el reporte HTML con los 4 widgets de matriz de confusión
 - Tabla de top 10 casos problemáticos con sorting por tipo de error
 - Comando `--compare reporte_v1.json reporte_v2.json` que genera un diff de mejora entre dos ejecuciones
@@ -70,7 +69,7 @@ Y genera un **reporte HTML** con:
 
 ---
 
-## 6. Extensión (si hay más tiempo)
+## 6. Extensión
 
 - Soporte para **múltiples guardrails en paralelo**: comparar la performance de dos configuraciones sobre el mismo dataset
 - **Generación automática de adversarial test cases** usando Bedrock: dado un conjunto de prompts bloqueados, generar variaciones que intenten evadir el guardrail
@@ -98,31 +97,21 @@ Reemplazar Bedrock Guardrails por **OpenAI Moderation API** (gratuita). El schem
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito | Peso |
-|---|---|---|
-| **Cobertura del dataset** | El JSONL tiene al menos 8 casos por política, balanceados entre FP y FN potenciales | 25% |
-| **Precisión del reporte** | La matriz de confusión calculada coincide con verificación manual de 10 casos al azar | 30% |
-| **Utilidad del reporte** | Un stakeholder no técnico entiende qué políticas tienen problemas en < 2 minutos | 20% |
-| **Demostración de mejora** | El reporte v2 muestra reducción medible de FP en al menos una política respecto al v1 | 15% |
-| **Usabilidad de la CLI** | `--help` documenta todas las opciones; exit code 0 en éxito, 1 en error | 10% |
-
----
-
-## 9. Riesgos y desafíos
-
-- **Configurar un guardrail realista lleva tiempo** — Crear un guardrail con las 4 políticas activas requiere configuración manual en la consola. Hacer esto el primer día.
-- **Dataset sesgado hacia casos fáciles** — Si todos los test cases son obvios, el guardrail va a tener 100% de accuracy y no habrá nada para calibrar. Incluir casos deliberadamente ambiguos: queries legítimas con jerga técnica, PII en contexto educativo.
-- **Cambios en el guardrail afectan producción** — Si el equipo ajusta un guardrail que está en producción, puede generar un incidente. Crear un guardrail separado para el lab.
-- **La API `ApplyGuardrail` requiere un `source` específico** — El parámetro `source` puede ser `INPUT` o `OUTPUT`. Los test cases deben especificarlo para obtener resultados correctos.
-- **Reporte HTML sin diseño claro** — Diseñar la estructura del template en papel antes de implementarlo en Jinja2.
+- ¿Qué distingue un falso positivo de una detección legítima en un guardrail de contenido? ¿Cómo se diseñan casos de prueba que cubran ambos lados de esa línea?
+- ¿Cómo se mide si un cambio de configuración del guardrail mejoró o empeoró la calibración? ¿Qué dice el delta entre v1 y v2?
+- ¿Qué hace que un dataset de evaluación sea representativo? ¿Qué pasa si todos los casos son obvios?
+- ¿Cuándo un guardrail "perfecto" en el dataset de prueba falla en producción? ¿Qué sesgos introduce la selección manual de casos?
+- ¿Cómo presentar métricas de un guardrail a un stakeholder no técnico de forma que pueda tomar decisiones concretas?
+- ¿Qué diferencias de comportamiento hay entre políticas de topic, contenido, y PII? ¿Cuáles son más difíciles de calibrar y por qué?
+- ¿Qué pasa si el equipo calibra un guardrail que está en producción? ¿Cómo se aisla el trabajo de laboratorio del impacto real?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — Guardrails Calibration Tool — [Equipo]

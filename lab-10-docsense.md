@@ -1,7 +1,6 @@
 # Lab 10: DocSense — Extractor Inteligente de Documentos Técnicos
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 1 semana | **Extensión:** 1 mes
 **Nivel:** Intermedio
 
 ---
@@ -32,7 +31,7 @@ El equipo de DevOps o architecture recibe entre 20 y 80 páginas de especificaci
 
 ---
 
-## 5. Alcance del MVP (1 semana)
+## 5. Alcance del MVP
 
 - CLI con comando `extract` que acepta PDF o directorio + archivo de schema
 - Schema configurable en YAML: el usuario define nombre del campo, tipo (string, date, number, list), descripción en lenguaje natural, y si es obligatorio
@@ -44,7 +43,7 @@ El equipo de DevOps o architecture recibe entre 20 y 80 páginas de especificaci
 
 ---
 
-## 6. Extensión (1 mes)
+## 6. Extensión
 
 - Modo batch: procesar carpeta de 50+ documentos, output consolidado en CSV/parquet para análisis
 - Detección automática de tipo de documento (RFC, contrato, runbook) y selección automática de schema pre-definido
@@ -71,30 +70,21 @@ El equipo de DevOps o architecture recibe entre 20 y 80 páginas de especificaci
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito |
-|---|---|
-| Extracción básica | 8/10 campos correctos en el documento de prueba estándar del lab |
-| Confianza calibrada | Campos con confianza < 0.60 son incorrectos o ambiguos en ≥ 70% de los casos |
-| Portabilidad de schema | 3 schemas distintos (infra spec, vendor contract, runbook) funcionan sin modificar el código |
-| Latencia | Documento de 20 páginas procesado en < 45 segundos end-to-end |
-| CLI usabilidad | Un usuario nuevo puede usar la CLI para extraer un documento sin leer documentación en < 5 minutos |
-
----
-
-## 9. Riesgos y desafíos
-
-- **PDFs con tablas multi-columna** — La extracción de texto plano de tablas suele fallar o producir texto mezclado. Solución: usar pdfplumber para detectar tablas y procesarlas como markdown separado antes de incluirlas en el contexto del LLM.
-- **El LLM ignora el schema y responde en texto libre** — En modelos pequeños esto es frecuente. Solución: usar grammar sampling en Ollama para forzar JSON válido, o agregar few-shot examples en el prompt que demuestren el formato exacto de salida.
-- **Campos que aparecen múltiples veces** — El LLM toma el primero o el último arbitrariamente (ej. versiones en distintas secciones del doc). Hay que decidir una estrategia explícita: todos los valores como lista, el valor más reciente, el del sumario ejecutivo.
-- **Confidence score sin calibrar** — El LLM tiende a reportar 0.90 para todo si no se lo guía. El prompt debe incluir ejemplos de cuándo la confianza debería ser baja (información ambigua, campo ausente, valor inferido).
+- ¿Por qué la extracción de texto de PDFs con tablas multi-columna es difícil? ¿Qué información se pierde y cómo afecta al LLM?
+- ¿Cómo se calibra un confidence score en extracción de documentos? ¿Qué significa que el modelo reporte 0.90 para todo?
+- ¿Qué pasa cuando un campo aparece múltiples veces con valores distintos en el mismo documento? ¿Cuáles son las estrategias de resolución y sus trade-offs?
+- ¿Cuándo conviene forzar output estructurado con grammar sampling vs. confiar en el prompt y few-shot examples?
+- ¿Cómo se diseña un schema de extracción que sea portable entre tipos de documentos distintos sin cambiar el código?
+- ¿Cuál es la relación entre el tamaño del documento, el context window del modelo, y la latencia de procesamiento?
+- ¿Qué hace que un documento sea difícil de extraer incluso para un modelo grande?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — DocSense — [Equipo]

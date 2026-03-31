@@ -1,7 +1,6 @@
 # Lab 06: Resilient LLM Gateway — Anti-Throttling con Cross-Region Inference
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 2 semanas | **Extensión:** si hay más tiempo
 **Nivel:** Intermedio
 **Servicios AWS:** Amazon Bedrock, Cross-Region Inference Profiles
 
@@ -74,7 +73,7 @@ Payload de `/metrics`:
 
 ---
 
-## 5. Alcance del MVP (2 semanas)
+## 5. Alcance del MVP
 
 | Semana | Foco | Entregables |
 |--------|------|-------------|
@@ -85,7 +84,7 @@ Payload de `/metrics`:
 
 ---
 
-## 6. Extensión (si hay más tiempo)
+## 6. Extensión
 
 - **Tres regiones:** Agregar `eu-west-1` como tercer fallback. Circuit breaker independiente por región. Medir el impacto en latencia con la región europea.
 - **Métricas en Prometheus + Grafana:** Reemplazar el endpoint JSON con métricas en formato Prometheus. Dashboard en tiempo real durante la prueba de carga.
@@ -118,31 +117,21 @@ Permite desarrollar y demostrar el gateway completo — incluido el circuit brea
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito | Peso |
-|---|---|---|
-| **Resiliencia demostrada** | Con el gateway, 100% de requests completan bajo la misma carga que produce 20-30% de fallos en llamada directa | 35% |
-| **Circuit breaker funcional** | Cuando el error rate supera el umbral, el circuit breaker se activa y redirige el 100% al fallback. Se recupera automáticamente. | 25% |
-| **Métricas en tiempo real** | `/metrics` refleja el estado actual durante la carga: distribución por región, retry count, failure rate correctos | 20% |
-| **Calidad del código** | Circuit breaker implementado como módulo reutilizable. Parámetros (umbral, ventana, timeout) configurables. | 10% |
-| **Comprensión del tradeoff** | El equipo explica cuánta latencia cuesta la resiliencia y por qué ese tradeoff tiene sentido en producción | 10% |
-
----
-
-## 9. Riesgos y desafíos
-
-- **Permisos para cross-region inference** — Los profiles `us.` requieren que el modelo esté habilitado en `us-east-1` Y `us-west-2`. Verificar acceso en ambas regiones el día 1.
-- **Reproducir throttling real** — En condiciones normales de lab, Bedrock rara vez throttlea. Si no aparece throttling natural, usar el mock para el desarrollo. Solo ir contra Bedrock real para la demo final.
-- **Estado del circuit breaker en memoria** — El MVP guarda el estado en memoria del proceso. Si el gateway se reinicia, el circuit breaker se resetea. Limitación válida para el MVP; en producción real se usaría Redis.
-- **Jitter en el retry** — Un retry sin jitter causa thundering herd: todos los clientes throttleados reintentan al mismo tiempo. Verificar que la implementación incluye jitter real (no solo backoff fijo). Los modelos de lenguaje también cometen este error.
-- **Latencia del mock vs. Bedrock real** — El mock retorna en microsegundos; Bedrock tarda 200-800ms. Las métricas del mock no son representativas. Incluir al menos 10-20 requests reales en la demo final.
+- ¿Cómo funciona un circuit breaker? ¿Cuáles son los estados (closed, open, half-open) y las transiciones entre ellos?
+- ¿Qué es throttling en el contexto de APIs de LLM y por qué cross-region inference ayuda a distribuirlo?
+- ¿Qué es thundering herd y cómo el jitter en el retry lo mitiga? ¿Cuánto jitter es suficiente?
+- ¿Cuál es el tradeoff entre resiliencia y latencia en un gateway? ¿Cuánta latencia extra es aceptable para ganar resiliencia en producción?
+- ¿Qué limitaciones tiene guardar el estado del circuit breaker en memoria del proceso? ¿Qué implicancias tiene si el gateway se reinicia?
+- ¿Por qué es importante que los parámetros del circuit breaker (umbral, ventana, timeout) sean configurables sin deployar?
+- ¿Cuándo las métricas del mock son útiles para el desarrollo y cuándo no son suficientes para validar el comportamiento real?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — Resilient LLM Gateway — [Equipo]

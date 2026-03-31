@@ -1,7 +1,6 @@
 # Lab 00: AI Functions — Tu Primer Prototipo Agentico
 
 **Duración del equipo:** 2–3 personas
-**MVP:** 2–3 semanas | **Extensión:** si hay más tiempo
 **Nivel:** Introductorio — punto de entrada al programa
 **Biblioteca:** strands-ai-functions + Python 3.12+
 
@@ -70,15 +69,15 @@ Un **script Python o notebook** que implementa un pipeline agentico con:
 
 ---
 
-## 5. Alcance del MVP (2 semanas)
+## 5. Alcance del MVP
 
-**Semana 1 — Primera AI Function funcionando:**
+**Primera fase — Primera AI Function funcionando:**
 - Setup del entorno: Python 3.12+, instalación de `strands-ai-functions`, acceso al modelo (Codex, GPT-4o-mini, o Amazon Bedrock)
 - Definir y ejecutar **una** AI Function para el escenario elegido
 - Explorar los ejemplos del repositorio (`meeting_summary.py`, `universal_loader.py`, `stock_report.py`) para entender patrones
 - Implementar una post-condition simple que valide el output y retryar manualmente al menos una vez
 
-**Semana 2 — Pipeline completo:**
+**Segunda fase — Pipeline completo:**
 - Segunda AI Function que usa el output de la primera
 - Post-conditions en ambas funciones con autocorrección automática (no manual)
 - Script o notebook que ejecuta el pipeline de punta a punta
@@ -87,7 +86,7 @@ Un **script Python o notebook** que implementa un pipeline agentico con:
 
 ---
 
-## 6. Extensión (si hay más tiempo)
+## 6. Extensión
 
 - Implementar el pipeline con **funciones asíncronas**: que dos AI Functions corran en paralelo cuando no dependen una de la otra, y medir el impacto en tiempo total
 - Agregar una **tercera función** que consolide los outputs anteriores en un reporte final (PDF, markdown, o JSON estructurado)
@@ -124,31 +123,21 @@ Un **script Python o notebook** que implementa un pipeline agentico con:
 
 ---
 
-## 8. Criterios de evaluación
+## 8. Terreno a explorar
 
-| Criterio | Métrica mínima de éxito | Peso |
-|---|---|---|
-| **AI Functions implementadas** | Al menos 2 funciones definidas y ejecutadas exitosamente con el escenario elegido | 25% |
-| **Post-conditions funcionando** | Al menos 1 caso documentado donde la post-condition activó autocorrección y el output del retry fue correcto | 30% |
-| **Pipeline combinado** | Las 2 funciones se encadenan en un flujo ejecutable de punta a punta (sin intervención manual) | 20% |
-| **Calidad del output** | 3 de 5 inputs del dataset de prueba producen outputs correctos y útiles en ≤ 2 intentos | 15% |
-| **Documentación del aprendizaje** | El equipo puede explicar: qué es una AI Function, qué hace una post-condition, y cuándo el modelo autocorrigió vs. cuándo no pudo | 10% |
-
----
-
-## 9. Riesgos y desafíos
-
-- **Post-conditions demasiado estrictas o demasiado laxas** — Si la post-condition es muy estricta (requiere precisión perfecta), el modelo va a hacer retries indefinidamente. Si es muy laxa, no detecta nada. Empezar con condiciones simples y binarias: "¿el output tiene todos los campos requeridos?" antes de agregar lógica compleja.
-- **El modelo ignora la estructura esperada** — Algunos modelos pequeños no respetan consistentemente el schema de output. Agregar few-shot examples en el prompt de la AI Function ayuda. Si el problema persiste, cambiar a un modelo más capaz.
-- **Scope creep del escenario elegido** — Los equipos tienden a querer resolver el problema completo desde el principio. Empezar con el input más simple posible (1 página de transcripción, 50 líneas de log) y escalar solo cuando el pipeline funciona de punta a punta.
-- **Setup del entorno consume tiempo** — La instalación de `strands-ai-functions` y la configuración del acceso al modelo puede tomar medio día. Reservar la primera sesión exclusivamente para esto, antes de escribir cualquier AI Function.
-- **Datos de prueba inadecuados** — Si los inputs de prueba son todos iguales o muy simples, la post-condition nunca se activa y no hay evidencia de autocorrección. Incluir deliberadamente inputs con ambigüedades, campos faltantes, o formato inconsistente.
+- ¿Qué pasa cuando una post-condition es demasiado estricta? ¿Y cuando es demasiado laxa? ¿Cómo encontrar el punto de equilibrio entre ambos extremos?
+- ¿Cuántos intentos de autocorrección necesita el modelo antes de rendir o acertar? ¿Hay casos donde nunca converge?
+- ¿Cómo afecta la elección del modelo (local vs. API, tamaño) a la consistencia del schema de output?
+- ¿Qué hace que un pipeline de dos AI Functions sea más difícil de debuggear que una sola?
+- ¿Cómo se diseña una post-condition que sea verificable y específica sin ser frágil ante variaciones menores del output?
+- ¿Cuándo conviene arrancar con el caso más simple posible vs. ir directo al escenario completo?
+- ¿Qué tipo de inputs de prueba activan las post-conditions? ¿Qué inputs nunca las activan aunque el output sea malo?
 
 ---
 
-## 10. Reflexión AI (completar al terminar el lab)
+## 9. Reflexión AI (opcional)
 
-Cada equipo completa este template y lo comparte con el programa. Alimenta el loop de mejora entre ciclos.
+Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
 
 ```
 ## Reflexión AI — AI Functions — [Equipo] — [Escenario elegido]
