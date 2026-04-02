@@ -111,7 +111,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Windsurf / Codex | Construir el pipeline y la CLI | |
+| Codex / Windsurf | Construir el pipeline y la CLI | |
 | Modelo de visión | Analizar screenshots y describir diferencias | |
 | Playwright | Capturar screenshots automáticamente | |
 

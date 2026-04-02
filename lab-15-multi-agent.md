@@ -115,7 +115,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Windsurf / Codex | Implementar los agentes y el supervisor | |
+| Codex / Windsurf | Implementar los agentes y el supervisor | |
 | LangGraph / manual | Orquestar el flujo multi-agente | |
 
 ### Mayor impacto de IA en este lab

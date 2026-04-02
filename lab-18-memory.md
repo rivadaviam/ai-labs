@@ -118,7 +118,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Windsurf / Codex | Construir el asistente y la estrategia de memoria | |
+| Codex / Windsurf | Construir el asistente y la estrategia de memoria | |
 | Chroma / FAISS (si aplica) | Vector store para retrieval-based memory | |
 
 ### Mayor impacto de IA en este lab

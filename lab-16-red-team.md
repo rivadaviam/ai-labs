@@ -112,7 +112,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Windsurf / Codex | Construir el chatbot target y la CLI de red teaming | |
+| Codex / Windsurf | Construir el chatbot target y la CLI de red teaming | |
 | LLM-as-judge | Evaluar automáticamente si los ataques fueron exitosos | |
 
 ### Mayor impacto de IA en este lab
