@@ -1,8 +1,7 @@
 # Lab 04: Live Knowledge Base Sync Pipeline
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Intermedio
-**Servicios AWS:** Bedrock Knowledge Bases, S3, SQS, Lambda, CloudWatch, CDK/SAM
 
 ---
 
@@ -41,36 +40,33 @@ S3 (PutObject / DeleteObject)
 
 Más un test harness Python (`test_sync.py`) que valida el pipeline end-to-end midiendo latencia de sincronización para inserciones y eliminaciones.
 
-**Demo de 15 minutos:**
+**Validaciones sugeridas:**
 
-1. **(0-3 min)** `cdk deploy LiveKBSyncStack`. Mostrar los outputs: ARN de la KB, SQS URL, nombre del Lambda.
-2. **(3-10 min)** Correr el test harness:
-   ```
-   python test_sync.py --doc policy_2026.md --query "política de vacaciones 2026"
+- Subir un documento a S3 y verificar que la KB lo refleja (query retorna contenido del documento nuevo)
+- Medir la latencia de sincronización: tiempo entre el upload a S3 y la disponibilidad en la KB
+- Eliminar un documento de S3 y verificar que la KB deja de retornarlo
+- Revisar los CloudWatch Logs del Lambda: verificar que los eventos se procesan correctamente y la DLQ está vacía
+- Correr el test harness con al menos 3 documentos distintos para confirmar consistencia
 
-   [1/6] Uploading doc → s3://corp-docs/policy_2026.md
-   [2/6] Waiting for KB sync...
-     attempt 1 (t=5s):  no result
-     attempt 3 (t=28s): no result
-     attempt 4 (t=41s): ✅ Found! "Los empleados tienen 20 días..."
-   [3/6] INSERT sync latency: 41 seconds
-
-   [4/6] Deleting doc from S3...
-   [5/6] Waiting for KB to clear...
-     attempt 2 (t=22s): still returning result
-     attempt 3 (t=38s): ✅ Clean — no result returned
-   [6/6] DELETE sync latency: 38 seconds
-   ```
-3. **(11-15 min)** Mostrar CloudWatch Logs del Lambda: eventos recibidos desde SQS, job IDs, tiempos. DLQ vacía (ningún mensaje falló).
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
 ## 5. Alcance del MVP
 
-| Semana | Foco | Entregables |
-|--------|------|-------------|
-| **1** | Infraestructura base | Stack CDK/SAM deployable: S3 + Event Notifications, SQS con DLQ, Lambda conectado, KB de Bedrock creada. Lambda puede llamar a `StartIngestionJob` exitosamente. |
-| **2** | Pipeline completo + test harness | Lambda maneja eventos de Delete (`DeleteKnowledgeBaseDocuments`). Test harness con polling y medición de latencia. Demo funciona de punta a punta. |
+**Primera fase — Infraestructura base:**
+- Stack CDK/SAM deployable: S3 + Event Notifications, SQS con DLQ, Lambda conectado, KB de Bedrock creada
+- Lambda puede llamar a `StartIngestionJob` exitosamente
+- Verificar que un documento subido a S3 dispara el pipeline completo
+
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
+
+**Segunda fase — Pipeline completo + test harness:**
+- Lambda maneja eventos de Delete (`DeleteKnowledgeBaseDocuments`)
+- Test harness con polling y medición de latencia
+- Pipeline funciona de punta a punta para inserciones y eliminaciones
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 **Fuera del MVP:** documentos > 100 páginas, múltiples data sources, alarmas CloudWatch automáticas.
 
@@ -123,12 +119,14 @@ El test harness es prácticamente idéntico — solo cambia el cliente de ingest
 - ¿Cómo cambia la estrategia de testing cuando hay latencia inherente en el sistema bajo prueba?
 - ¿Qué diferencia hay entre "el documento está en S3" y "el documento es recuperable en la KB"? ¿Qué sucede en el medio?
 - ¿Cómo afecta el tamaño del documento y la cantidad de re-runs al costo del lab?
+- ¿La IA fue útil para generar el stack CDK/SAM completo, o generó código para versiones anteriores de las APIs que requirió debugging manual?
+- ¿En qué parte del lab la IA ahorró más tiempo: infraestructura, lógica del Lambda, o diseño del test harness?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — Live KB Sync Pipeline — [Equipo]
@@ -149,9 +147,10 @@ modelo de eventos S3 → SQS → Lambda? ¿Diagnosticó un error de permisos IAM
 ¿Generó código de CDK para una versión anterior? ¿El test harness tenía una lógica
 de polling que no terminaba?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
 [ej: "Pedirle a Claude que explique el modelo de consistencia de Bedrock KB antes de

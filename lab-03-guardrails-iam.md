@@ -1,8 +1,7 @@
 # Lab 03: AI Governance Scanner — Auditoría Automática de Compliance de IAM para Bedrock
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Intermedio–Avanzado
-**Servicios AWS:** IAM, Amazon Bedrock
 
 ---
 
@@ -40,13 +39,14 @@ Una CLI `ai-governance-scan` que:
 
 **Output:** Reporte HTML + JSON con resumen ejecutivo, estado por rol, y fixes listos para aplicar.
 
-**Demo de 15 minutos:**
+**Validaciones sugeridas:**
 
-1. **(0-2 min)** Mostrar el setup: 15 IAM roles de prueba, algunos con la condition correcta, algunos sin ella
-2. **(2-5 min)** Ejecutar `ai-governance-scan --required-guardrail arn:aws:bedrock:us-east-1:123:guardrail/abc123 --output reporte.html`. Mostrar el progreso
-3. **(5-9 min)** Abrir `reporte.html`: "15 roles escaneados. 6 compliant ✅, 9 non-compliant ❌." Mostrar la sección de fixes: para el rol `service-payments-lambda-role`, la política correctiva está lista para copiar y pegar
-4. **(9-12 min)** Aplicar la corrección a un rol con `aws iam put-role-policy` usando el JSON del reporte (copy-paste directo)
-5. **(12-15 min)** Re-ejecutar el scan. Mostrar: "9 non-compliant → 8 non-compliant". El rol corregido ahora aparece como compliant
+- Ejecutar el scan sobre el ambiente de prueba y verificar que clasifica correctamente roles compliant y non-compliant
+- Aplicar la política correctiva generada para un rol non-compliant y re-ejecutar el scan para verificar que ahora aparece como compliant
+- Probar con roles que usan wildcards (`bedrock:*`, `bedrock:Invoke*`) y verificar que el scanner los detecta correctamente
+- Revisar que el reporte HTML incluye los fixes listos para copiar y pegar en el formato correcto
+
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
@@ -54,15 +54,19 @@ Una CLI `ai-governance-scan` que:
 
 **Primera fase — Scanner core:**
 - Setup del ambiente de prueba: script que crea 10-15 roles IAM con distintos niveles de compliance
-- Implementar el scanner: `list_roles` → filtrar por acceso a Bedrock → verificar condition key
+- Implementar el scanner: enumerar roles, filtrar por acceso a Bedrock, verificar condition keys
 - Output a JSON con el estado de cada rol
 - Generación del texto de política correctiva para roles non-compliant
+
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
 
 **Segunda fase — Reporte HTML y validación:**
 - Template Jinja2 para el reporte HTML con resumen ejecutivo + tabla de roles + sección de fixes
 - Comando `--dry-run` que muestra los fixes sin aplicarlos
 - Soporte para `--region` para escanear una región específica
 - Test de validación: aplicar un fix generado por el scanner y confirmar que el re-scan lo detecta como compliant
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 ---
 
@@ -110,12 +114,14 @@ Costo estimado: **$0** — todas las operaciones son llamadas a IAM API sin cost
 - ¿Cuáles son las diferencias prácticas entre políticas inline y managed attached al momento de auditarlas programáticamente?
 - ¿Cómo se valida que una corrección de política generada por IA es segura antes de aplicarla en una cuenta real?
 - ¿Qué hace que un ambiente de prueba sea suficientemente representativo para confiar en los resultados del scanner?
+- ¿La IA fue útil para escribir el parser de políticas IAM con sus edge cases (wildcards, NotAction, múltiples statements), o generó código que solo cubría el caso feliz?
+- ¿Cómo usó el equipo IA para generar las políticas correctivas? ¿Hubo casos donde la IA generó fixes sintácticamente válidos pero semánticamente incorrectos?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — AI Governance Scanner — [Equipo]
@@ -137,9 +143,10 @@ políticas correctivas en el formato correcto?]
 sintácticamente válidas pero semánticamente incorrectas? ¿El parser falló ante políticas
 con múltiples statements o Not actions?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
 [ej: "El mayor riesgo es el parser de políticas IAM — antes de escribir código, mapear

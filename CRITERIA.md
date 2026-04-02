@@ -97,11 +97,11 @@ Los participantes practican y documentan el uso de IA en distintas fases:
 
 ## El Loop de Mejora
 
-El cierre de cada lab es un **show & tell informal**: el equipo comparte el proceso de aprendizaje, lo que construyó, y posibles mejoras o continuaciones. No hay formato obligatorio ni entregable previo.
+El cierre de cada lab es un **show & tell informal**: el equipo comparte el proceso de aprendizaje, lo que construyó, y posibles mejoras o continuaciones.
 
-La **Sección de Reflexión AI** incluida en cada lab es un template opcional — no es un pre-requisito del show & tell. Si los resultados del equipo son prometedores o generan aprendizajes relevantes para el programa, se puede acordar un write-up estructurado posterior.
+La **Reflexión AI** se construye **durante** el lab, no al final. Cada lab incluye **checkpoints de reflexión** al cierre de cada fase del MVP, donde el equipo anota brevemente qué herramientas de IA usaron, en qué tareas, y qué observaron. La sección 9 de cada lab es la **síntesis** de esos checkpoints — se presenta como adenda al show & tell.
 
-El template de reflexión (incluido en cada lab) sirve como punto de partida si el equipo decide documentar formalmente:
+El template de reflexión (incluido en cada lab) estructura la síntesis final:
 
 ```
 ## Reflexión AI — [Nombre del Lab] — [Equipo]
@@ -118,9 +118,7 @@ El template de reflexión (incluido en cada lab) sirve como punto de partida si 
 [Descripción de 2-3 oraciones: qué salió mal, alucinaciones, contexto insuficiente, etc.]
 
 ### Cambio en el ciclo de desarrollo
-¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo que haga este lab
 [1-2 oraciones: qué consejo darías sobre cómo usar IA en este lab específico]
@@ -146,7 +144,7 @@ El template de reflexión (incluido en cada lab) sirve como punto de partida si 
 
 - [ ] **Show & tell realizado** — el equipo presentó su proceso de aprendizaje, lo construido (si aplica), y posibles continuaciones
 - [ ] **Decisiones técnicas justificadas** — el equipo puede explicar las elecciones que tomó y qué aprendió de ellas
-- [ ] **Reflexión AI opcional** — si el equipo decide documentarla, usa el template incluido en el lab
+- [ ] **Reflexión AI completada** — el equipo presenta la síntesis de los checkpoints de reflexión recogidos durante el lab
 
 ### Anti-criterios
 
@@ -154,7 +152,7 @@ El template de reflexión (incluido en cada lab) sirve como punto de partida si 
 - [ ] No ser un walkthrough de código sin producto que construir
 - [ ] No depender de datos sensibles o de producción
 - [ ] No requerir infraestructura costosa o de costo fijo para el MVP
-- [ ] No ignorar el eje "AI asiste al equipo mientras hace el lab"
+- [ ] No ignorar el eje "AI asiste al equipo mientras hace el lab" — los checkpoints de reflexión existen para esto
 - [ ] No asumir que todos los participantes tienen el mismo nivel
 
 ---
@@ -168,12 +166,12 @@ Cada lab tiene estas **9 secciones**:
 | 1 | **Nombre** | Claro y atractivo |
 | 2 | **Skill principal** | Patrón de IA que se explora |
 | 3 | **Problema a resolver** | Escenario concreto y realista |
-| 4 | **Producto objetivo** | Qué se construye + cómo se muestra en el show & tell |
-| 5 | **Alcance del MVP** | Qué se puede lograr en 3 semanas a 4 hs/sem/persona |
+| 4 | **Producto objetivo** | Qué se construye + validaciones sugeridas para probarlo |
+| 5 | **Alcance del MVP** | Qué se puede lograr en 3 semanas a 4 hs/sem/persona, con checkpoints de reflexión al cierre de cada fase |
 | 6 | **Extensión** | Cómo evoluciona si el equipo decide continuar |
 | 7 | **Stack sugerido** | Solo se menciona si la tecnología es parte del aprendizaje; si no, el equipo elige |
-| 8 | **Terreno a explorar** | Conceptos clave, fenómenos esperables, y preguntas que el lab debería responder |
-| 9 | **Reflexión AI** | Template opcional de lecciones sobre uso de IA durante el lab |
+| 8 | **Terreno a explorar** | Conceptos clave, fenómenos esperables, y preguntas que el lab debería responder — incluyendo preguntas sobre el uso de IA durante la construcción |
+| 9 | **Reflexión AI** | Síntesis obligatoria de los checkpoints de reflexión recogidos durante el lab |
 
 ---
 

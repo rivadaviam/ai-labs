@@ -1,8 +1,7 @@
 # Lab 06: Resilient LLM Gateway — Anti-Throttling con Cross-Region Inference
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Intermedio
-**Servicios AWS:** Amazon Bedrock, Cross-Region Inference Profiles
 
 ---
 
@@ -50,35 +49,35 @@ Payload de `/metrics`:
 }
 ```
 
-**Demo de 15 minutos:**
+**Validaciones sugeridas:**
 
-1. **(0-2 min)** `uvicorn gateway:app --port 8080`. Verificar `/metrics` vacío.
-2. **(2-6 min)** Prueba de carga sin gateway vs. con gateway:
-   ```
-   # Sin gateway (llamada directa, para mostrar el problema)
-   python load_test.py --requests 50 --parallel 10 --direct
-   → Completados: 35/50 (70%) | Fallidos: 15/50 (30%) ThrottlingException
+- Correr una prueba de carga directa contra Bedrock (sin gateway) y registrar la tasa de throttling
+- Correr la misma prueba a través del gateway y verificar que la tasa de éxito mejora significativamente
+- Verificar que `/metrics` refleja correctamente la distribución de requests entre regiones, retries exitosos, y estado del circuit breaker
+- Forzar throttling sostenido y verificar que el circuit breaker se abre y rutea al fallback
+- Verificar que tras el período de timeout, el circuit breaker pasa a half-open y prueba la región primaria
 
-   # Con el gateway
-   python load_test.py --requests 50 --parallel 10 --gateway http://localhost:8080
-   → Completados: 50/50 (100%)
-     us-east-1: 33 requests | us-west-2: 17 requests (fallback activado)
-   ```
-3. **(6-12 min)** Mostrar `/metrics` en tiempo real durante la carga. Señalar: region_distribution, retry_success_count, failure_rate_percent = 0.
-4. **(12-15 min)** Circuit breaker en acción:
-   ```
-   python load_test.py --requests 20 --parallel 5 --force-throttle
-   ```
-   Gateway muestra: `⚡ Circuit breaker OPEN — routing 100% to fallback region`. Los 20 requests completan en `us-west-2`.
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
 ## 5. Alcance del MVP
 
-| Semana | Foco | Entregables |
-|--------|------|-------------|
-| **1** | Gateway base con retry y cross-region | FastAPI con endpoint `/invoke`. Retry con exponential backoff. Cross-region fallback funcional. Mock de Bedrock para desarrollo local sin costo. |
-| **2** | Circuit breaker + métricas + load test | Circuit breaker con ventana deslizante configurable. Endpoint `/metrics`. Script `load_test.py`. Demo completa funciona. |
+**Primera fase — Gateway base con retry y cross-region:**
+- FastAPI con endpoint `/invoke`
+- Retry con exponential backoff + jitter
+- Cross-region fallback funcional
+- Mock de Bedrock para desarrollo local sin costo
+
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
+
+**Segunda fase — Circuit breaker + métricas + load test:**
+- Circuit breaker con ventana deslizante configurable
+- Endpoint `/metrics`
+- Script `load_test.py`
+- Validaciones completas funcionando
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 **Fuera del MVP:** autenticación del gateway, rate limiting hacia clientes upstream, persistencia de métricas, deploy en ECS.
 
@@ -126,12 +125,14 @@ Permite desarrollar y demostrar el gateway completo — incluido el circuit brea
 - ¿Qué limitaciones tiene guardar el estado del circuit breaker en memoria del proceso? ¿Qué implicancias tiene si el gateway se reinicia?
 - ¿Por qué es importante que los parámetros del circuit breaker (umbral, ventana, timeout) sean configurables sin deployar?
 - ¿Cuándo las métricas del mock son útiles para el desarrollo y cuándo no son suficientes para validar el comportamiento real?
+- ¿La IA implementó correctamente el circuit breaker con todos sus estados (closed, open, half-open), o simplificó la lógica de forma que no era útil en la práctica?
+- ¿En qué parte del lab la IA ahorró más tiempo: el mock de Bedrock, la lógica de resiliencia, o el load test?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — Resilient LLM Gateway — [Equipo]
@@ -153,9 +154,10 @@ entender la diferencia entre cross-region inference profiles y multi-region endp
 herd? ¿Usó asyncio.sleep incorrectamente dentro de FastAPI? ¿El código de retry no
 re-levantaba la excepción correctamente después de agotar los reintentos?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
 [ej: "Implementar el mock de Bedrock primero y desarrollar todo el gateway contra el

@@ -1,8 +1,7 @@
 # Lab 00: AI Functions — Tu Primer Prototipo Agentico
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Introductorio — punto de entrada al programa
-**Biblioteca:** strands-ai-functions + Python 3.12+
 
 ---
 
@@ -43,29 +42,14 @@ Un **script Python o notebook** que implementa un pipeline agentico con:
 - Un **flujo combinado** que encadena las funciones (secuencial o asíncrono)
 - Evidencia visible de que una post-condition atrapó al menos un output incorrecto y el modelo lo autocorrigió
 
-**Demo de 15 minutos:**
+**Validaciones sugeridas:**
 
-*Ejemplo para Escenario B (Meeting Intelligence):*
+- Correr el pipeline con al menos 3 inputs distintos y verificar que el output cumple el schema esperado en todos los casos
+- Provocar que una post-condition falle (usar un input que genere output incompleto) y verificar que el modelo autocorrige exitosamente
+- Comparar el output del pipeline con lo que el equipo hubiera generado manualmente para el mismo input
+- Revisar el log de autocorrección: verificar que muestra dónde falló la post-condition, qué prompt se usó para el retry, y cómo cambió el output entre intentos
 
-1. **(0-3 min)** Mostrar el input: una transcripción de 10 minutos de reunión (datos sintéticos o anonimizados). Explicar el problema: "esto tarda 25 minutos procesarlo a mano y el resultado varía según quién lo hace".
-2. **(3-8 min)** Correr el pipeline:
-   ```
-   python meeting_pipeline.py transcript.txt
-
-   [1/3] Extracting action items...
-         → Found 4 items. Post-condition: checking owner assignment...
-         ✗ Item 3 has no owner. Retrying with clarification prompt...
-         ✓ Post-condition passed (attempt 2)
-
-   [2/3] Classifying decisions...
-         → Found 2 decisions. Post-condition: checking decision has rationale...
-         ✓ Post-condition passed
-
-   [3/3] Generating summary...
-         ✓ Done. Output: meeting_summary.json
-   ```
-3. **(8-12 min)** Mostrar el JSON de output: action items con owners y fechas, decisiones con rationale, resumen ejecutivo. Comparar con lo que hubiera generado a mano en 25 minutos.
-4. **(12-15 min)** Mostrar el log de autocorrección: dónde falló la post-condition, qué prompt se usó para el retry, cómo cambió el output entre el intento 1 y el intento 2.
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
@@ -77,12 +61,16 @@ Un **script Python o notebook** que implementa un pipeline agentico con:
 - Explorar los ejemplos del repositorio (`meeting_summary.py`, `universal_loader.py`, `stock_report.py`) para entender patrones
 - Implementar una post-condition simple que valide el output y retryar manualmente al menos una vez
 
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
+
 **Segunda fase — Pipeline completo:**
 - Segunda AI Function que usa el output de la primera
 - Post-conditions en ambas funciones con autocorrección automática (no manual)
 - Script o notebook que ejecuta el pipeline de punta a punta
 - Dataset de prueba preparado (mínimo 3-5 inputs distintos para la demo)
 - Evidencia documentada de autocorrecciones: al menos 1 caso donde la post-condition atrapó un output malo y el modelo lo corrigió
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 ---
 
@@ -132,12 +120,14 @@ Un **script Python o notebook** que implementa un pipeline agentico con:
 - ¿Cómo se diseña una post-condition que sea verificable y específica sin ser frágil ante variaciones menores del output?
 - ¿Cuándo conviene arrancar con el caso más simple posible vs. ir directo al escenario completo?
 - ¿Qué tipo de inputs de prueba activan las post-conditions? ¿Qué inputs nunca las activan aunque el output sea malo?
+- ¿En qué se diferencia usar IA para escribir AI Functions vs. para escribir código convencional? ¿Qué cambia en el flujo de trabajo?
+- ¿La IA que usaste para construir el pipeline fue capaz de diseñar buenas post-conditions, o tendió a generar validaciones triviales que nunca fallan?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — AI Functions — [Equipo] — [Escenario elegido]
@@ -159,9 +149,10 @@ usó AI Functions para hacerlo?]
 te asistió generó post-conditions que nunca se activaban? ¿Hubo un loop infinito de
 retries que no terminaba?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
 [ej: "Empezá con el escenario más simple posible y un solo input de prueba hasta que
