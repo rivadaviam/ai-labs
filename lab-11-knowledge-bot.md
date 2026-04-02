@@ -1,6 +1,6 @@
 # Lab 11: KnowledgeBot — RAG con Feedback Loop y Calidad Medible
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Intermedio–Avanzado
 
 ---
@@ -27,20 +27,35 @@ El equipo tiene 200+ páginas de documentación técnica interna (ADRs, runbooks
 
 **Un bot de Slack** (o CLI interactiva si no hay workspace disponible) que responde preguntas sobre la documentación interna con citas de fuente exactas, y registra cada interacción para medir calidad y detectar gaps.
 
-**Demo en 15 minutos:** En el canal `#dev-help` de Slack, escribir `¿por qué usamos PostgreSQL y no MongoDB para los eventos de auditoría?`. El bot responde en < 10 segundos con: la respuesta basada en el ADR relevante, la cita exacta (nombre del documento, sección, fragmento), un score de confianza, y botones de 👍 / 👎. Luego abrir el dashboard (Streamlit o tablas en terminal): preguntas frecuentes que el bot no pudo responder bien, documentos más citados esta semana, score promedio por día. Finalmente, hacer una pregunta que claramente no tiene respuesta en los docs y mostrar que el bot responde "No encontré información suficiente sobre esto" en lugar de alucinar.
+**Validaciones sugeridas:**
+
+- Hacer una pregunta cuya respuesta está claramente en la documentación y verificar que el bot responde con cita exacta de la fuente
+- Hacer una pregunta que no tiene respuesta en los docs y verificar que el bot admite no tener información en lugar de alucinar
+- Verificar que el feedback (thumbs up/down) se registra correctamente en SQLite
+- Revisar los logs: verificar que cada interacción guarda la pregunta, respuesta, documentos recuperados, y score de retrieval
+- Probar con al menos 5 preguntas variadas para evaluar la calidad general del retrieval
+
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
 ## 5. Alcance del MVP
 
+**Primera fase — Pipeline RAG funcional:**
 - Pipeline de ingestion: procesar carpeta de archivos Markdown/PDF, chunking con overlap configurable, generación de embeddings con modelo local
 - Vector store: Chroma o FAISS (local, cero costo, sin setup de servidor)
-- Bot de Slack con Bolt SDK Python o CLI interactiva como fallback
 - Pipeline RAG completo: query → embed → retrieve top-k chunks → prompt con contexto → respuesta con cita
 - Citas de fuente obligatorias: el LLM solo puede citar documentos incluidos en el contexto, nunca inventar referencias
+
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
+
+**Segunda fase — Bot, feedback y observabilidad:**
+- Bot de Slack con Bolt SDK Python o CLI interactiva como fallback
 - Detección de "no sé": si el similarity score del retrieval es bajo, el bot admite no tener información suficiente
 - Logging en SQLite: cada pregunta + respuesta + documentos recuperados + score de retrieval
 - Feedback de usuarios: thumbs up/down en Slack o rating en CLI, guardado en SQLite
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 ---
 
@@ -80,12 +95,14 @@ El equipo tiene 200+ páginas de documentación técnica interna (ADRs, runbooks
 - ¿Cómo se diseña un sistema RAG que reconozca cuando no tiene información suficiente vs. cuando tiene información parcial?
 - ¿Cuál es la diferencia práctica entre feedback implícito (thumbs up/down) y métricas automáticas para mejorar un RAG?
 - ¿Qué hace que una pregunta no tenga respuesta en la documentación aunque el tema esté relacionado?
+- ¿La IA ayudó a diseñar el system prompt anti-alucinaciones del bot, o el equipo tuvo que iterarlo manualmente hasta que dejara de inventar citas?
+- ¿En qué parte del lab la IA ahorró más tiempo: pipeline de ingestion, diseño del prompt RAG, integración con Slack, o construcción del logging?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — KnowledgeBot — [Equipo]
@@ -93,18 +110,27 @@ Template para documentar el proceso de aprendizaje. No es un entregable obligato
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| | | |
+| Copilot / Codex | Implementar el pipeline de ingestion y el bot de Slack | |
+| Claude / ChatGPT | Diseñar el system prompt anti-alucinaciones y generar preguntas de prueba | |
+| Windsurf / Cursor | Construir el pipeline RAG y el sistema de logging | |
 
 ### Mayor impacto de IA en este lab
-[ej: escribir el system prompt anti-alucinaciones, implementar el pipeline de chunking, generar preguntas de prueba para el dataset]
+[¿La IA ayudó más en escribir el system prompt anti-alucinaciones, en implementar el
+pipeline de chunking, en integrar con Slack, o en generar preguntas de prueba para
+el dataset?]
 
 ### Momento donde la IA no ayudó o introdujo problemas
-[ej: el LLM inventó citas de documentos, sugirió chunk sizes sin tener en cuenta el tipo de documento]
+[¿El LLM inventó citas de documentos a pesar del system prompt? ¿La IA sugirió chunk
+sizes sin tener en cuenta el tipo de documento? ¿El código de integración con Slack
+usaba una versión obsoleta del SDK?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
-[ej: "El sistema anti-alucinaciones depende mucho del system prompt — pedile a IA que te ayude a testearlo con adversarial queries desde el inicio"]
+[ej: "El sistema anti-alucinaciones depende mucho del system prompt — pedile a IA que
+te ayude a testearlo con adversarial queries desde el inicio. El chunking es crítico:
+probá distintos tamaños y medid el impacto en retrieval antes de avanzar."]
 ```

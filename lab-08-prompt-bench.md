@@ -1,6 +1,6 @@
 # Lab 08: PromptBench — Evaluación Sistemática de Prompts de Producción
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Intermedio
 
 ---
@@ -27,18 +27,33 @@ El equipo tiene un feature de IA en producción (clasificador de tickets de sopo
 
 **Una CLI + reporte HTML** que, dado un dataset de pares (input, expected_output) y dos versiones de un prompt, ejecuta evaluación automática y genera un reporte comparativo con: ganador estadístico, casos de regresión detectados, y mejoras por categoría.
 
-**Demo en 15 minutos:** Ejecutar `promptbench compare prompt_v1.txt prompt_v2.txt --dataset tickets.jsonl --judge claude`. Output en terminal: tabla mostrando que prompt_v2 mejora accuracy de 67% a 81%, pero introduce 3 regresiones (el sistema los muestra con los inputs específicos que fallaron). Abrir el reporte HTML: heatmap de categorías de error, ejemplos de wins y losses lado a lado, gráfico de score distribution.
+**Validaciones sugeridas:**
+
+- Ejecutar `compare` con dos versiones de un prompt y verificar que el reporte identifica correctamente cuál es mejor y en qué casos
+- Verificar que las regresiones detectadas son reales: revisar manualmente los inputs que el sistema marca como "losses"
+- Comparar los resultados de los 3 modos de evaluación (exact match, LLM-as-judge, similarity) sobre el mismo dataset y analizar discrepancias
+- Ejecutar el mismo benchmark dos veces y verificar la reproducibilidad de los resultados
+
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
 ## 5. Alcance del MVP
 
+**Primera fase — Runner y evaluación básica:**
 - CLI con comando `compare` que acepta dos prompts (archivos `.txt`) + dataset + modelo de evaluación
 - Dataset format: JSONL con campos `input`, `expected`, `category` (opcional)
 - Runner: ejecuta ambos prompts en paralelo sobre todos los ejemplos del dataset con concurrencia controlada
-- 3 modos de evaluación seleccionables: exact match, LLM-as-judge (un LLM evalúa si la respuesta es correcta dado el expected), similarity score (embeddings cosine)
+- Al menos 1 modo de evaluación funcionando (exact match o LLM-as-judge)
+
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
+
+**Segunda fase — Reporte HTML y modos de evaluación completos:**
+- 3 modos de evaluación seleccionables: exact match, LLM-as-judge, similarity score (embeddings cosine)
 - Output: JSON de resultados + reporte HTML con tabla de wins/losses, ejemplos de regresión, y desglose por categoría
 - Comando adicional `dataset expand` para auto-generar más casos de prueba a partir de pocos ejemplos (few-shot dataset expansion)
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 ---
 
@@ -77,12 +92,14 @@ El equipo tiene un feature de IA en producción (clasificador de tickets de sopo
 - ¿Cómo se gestiona la concurrencia en llamadas a APIs de LLM sin superar rate limits?
 - ¿Qué información necesita un reporte de evaluación para que un PM pueda tomar una decisión sobre qué prompt usar en producción?
 - ¿Cuándo la reproducibilidad de los resultados falla? ¿Qué factores introducen variación entre dos runs del mismo benchmark?
+- ¿La IA fue útil para generar el dataset de evaluación, o los casos generados eran poco diversos y sesgados hacia el caso feliz?
+- ¿El prompt del LLM-as-judge fue diseñado por el equipo o generado por IA? ¿Cómo afectó esa decisión a la calidad de la evaluación?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — PromptBench — [Equipo]
@@ -90,18 +107,26 @@ Template para documentar el proceso de aprendizaje. No es un entregable obligato
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| | | |
+| Copilot / Codex | Implementar el runner con asyncio y el parsing de resultados | |
+| Claude / ChatGPT | Diseñar el prompt del LLM-judge y generar test cases | |
+| Windsurf / Cursor | Construir la CLI y el generador de reporte HTML | |
 
 ### Mayor impacto de IA en este lab
-[ej: generar el dataset de prueba, escribir el prompt del LLM-judge, implementar el runner con asyncio]
+[¿La IA ayudó más en generar el dataset de prueba, en escribir el prompt del LLM-judge,
+en implementar el runner con asyncio, o en diseñar el reporte HTML?]
 
 ### Momento donde la IA no ayudó o introdujo problemas
-[ej: el judge generado por IA era demasiado indulgente, o los test cases eran muy similares entre sí]
+[¿El LLM-judge generado por IA era demasiado indulgente y aprobaba respuestas incorrectas?
+¿Los test cases generados eran muy similares entre sí? ¿El código de concurrencia
+tenía race conditions?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
-[ej: "Usá IA para generar el primer batch de test cases pero revisalos manualmente — tienden a ser poco diversos"]
+[ej: "Usá IA para generar el primer batch de test cases pero revisalos manualmente —
+tienden a ser poco diversos. El prompt del LLM-judge es crítico: invertí tiempo en
+calibrarlo contra evaluación humana antes de confiar en los resultados."]
 ```

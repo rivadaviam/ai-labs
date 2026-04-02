@@ -1,6 +1,6 @@
 # Lab 10: DocSense — Extractor Inteligente de Documentos Técnicos
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Intermedio
 
 ---
@@ -27,19 +27,34 @@ El equipo de DevOps o architecture recibe entre 20 y 80 páginas de especificaci
 
 **Una CLI + API REST** que recibe un PDF o un directorio de PDFs, extrae entidades estructuradas según un schema configurable, y devuelve JSON limpio con un campo de confianza por cada valor extraído.
 
-**Demo en 15 minutos:** Ejecutar `docsense extract --schema infra_spec.yaml documento_vendor.pdf`. El output es un JSON estructurado con todos los campos del schema (versión de API, SLA en horas, región de deploy, contacto de escalación, fecha de EOL), cada uno con su `value` y `confidence` score. Luego ejecutar `docsense report resultado.json` que genera un reporte HTML donde los campos con confianza < 0.70 aparecen resaltados en amarillo como "verificar manualmente." El demo muestra también cómo cambiar el schema YAML para extraer un tipo diferente de documento sin tocar el código.
+**Validaciones sugeridas:**
+
+- Ejecutar la extracción sobre un documento de prueba y verificar que el JSON de output respeta el schema definido
+- Verificar que los confidence scores reflejan la dificultad real de extracción (campos ambiguos deberían tener score bajo)
+- Cambiar el schema YAML para otro tipo de documento y verificar que funciona sin cambiar código
+- Generar el reporte HTML y verificar que los campos de baja confianza se destacan visualmente
+- Probar con al menos 2 documentos de complejidad distinta para evaluar robustez
+
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
 ## 5. Alcance del MVP
 
+**Primera fase — Extracción básica con schema configurable:**
 - CLI con comando `extract` que acepta PDF o directorio + archivo de schema
 - Schema configurable en YAML: el usuario define nombre del campo, tipo (string, date, number, list), descripción en lenguaje natural, y si es obligatorio
 - Procesamiento de PDF: extracción de texto con PyMuPDF, chunking por secciones preservando títulos como contexto
-- Llamada al LLM con output forzado a JSON Schema (usando `response_format` en OpenAI, `tool_use` en Anthropic, o grammar sampling en Ollama)
+- Llamada al LLM con output forzado a JSON Schema
+
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
+
+**Segunda fase — Confidence scores, reporte HTML y API:**
 - Confidence score por campo: el LLM genera junto con el valor una justificación y un score 0.0–1.0
 - Output: JSON estructurado + reporte HTML con campos resaltados según nivel de confianza
 - API REST con FastAPI: endpoint `POST /extract` que acepta PDF como multipart/form-data y devuelve el JSON
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 ---
 
@@ -79,12 +94,14 @@ El equipo de DevOps o architecture recibe entre 20 y 80 páginas de especificaci
 - ¿Cómo se diseña un schema de extracción que sea portable entre tipos de documentos distintos sin cambiar el código?
 - ¿Cuál es la relación entre el tamaño del documento, el context window del modelo, y la latencia de procesamiento?
 - ¿Qué hace que un documento sea difícil de extraer incluso para un modelo grande?
+- ¿La IA ayudó a diseñar el schema YAML y los few-shot examples, o el equipo tuvo que iterar manualmente hasta que la extracción fuera confiable?
+- ¿En qué parte del lab la IA ahorró más tiempo: parsing de PDFs, diseño del prompt de extracción, o construcción de la API REST?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — DocSense — [Equipo]
@@ -92,18 +109,26 @@ Template para documentar el proceso de aprendizaje. No es un entregable obligato
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| | | |
+| Copilot / Codex | Implementar el parsing de PDFs y la API REST | |
+| Claude / ChatGPT | Diseñar el schema YAML y los few-shot examples del prompt de extracción | |
+| Windsurf / Cursor | Construir la CLI y el generador de reporte HTML | |
 
 ### Mayor impacto de IA en este lab
-[ej: diseñar el schema YAML de extracción, escribir los few-shot examples del prompt, generar el reporte HTML]
+[¿La IA ayudó más en diseñar el schema YAML de extracción, en escribir los few-shot
+examples del prompt, en implementar el parsing de PDFs, o en generar el reporte HTML?]
 
 ### Momento donde la IA no ayudó o introdujo problemas
-[ej: el LLM ignoró el schema en documentos con formato complejo, o los confidence scores eran siempre 0.9]
+[¿El LLM ignoró el schema en documentos con formato complejo? ¿Los confidence scores
+eran siempre 0.9 independientemente de la dificultad? ¿El parsing de PDFs con tablas
+perdía información crítica?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
-[ej: "Invertí tiempo en few-shot examples reales antes de probar en documentos difíciles — marca la diferencia"]
+[ej: "Invertí tiempo en few-shot examples reales antes de probar en documentos difíciles
+— marca la diferencia. El parsing de PDFs con tablas es el mayor obstáculo técnico:
+probá con PyMuPDF y pdfplumber y elegí el que mejor preserve la estructura."]
 ```

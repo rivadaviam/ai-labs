@@ -1,8 +1,7 @@
 # Lab 02: Guardrails Calibration Tool — Medición Sistemática de Falsos Positivos
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Intermedio
-**Servicios AWS:** Bedrock Guardrails (ApplyGuardrail API)
 
 ---
 
@@ -43,13 +42,14 @@ Y genera un **reporte HTML** con:
 - Tabla de los 10 casos más problemáticos con prompt, acción esperada, acción real, y assessment del guardrail
 - Score de accuracy global
 
-**Demo de 15 minutos:**
+**Validaciones sugeridas:**
 
-1. **(0-2 min)** Mostrar el archivo `financial_qa.jsonl` con 40 test cases: 15 queries legítimas de clientes, 10 intentos de injection, 10 queries de topic bloqueado, 5 queries con PII real
-2. **(2-6 min)** Ejecutar `guardrail-bench --cases financial_qa.jsonl --guardrail-id abc123 --output reporte_v1.html`. Mostrar el progreso en terminal
-3. **(6-9 min)** Abrir `reporte_v1.html`: "SensitiveInformationPolicy: 23% falsos positivos. Top 5 casos problemáticos: queries que contienen 'cuenta' en contexto legítimo"
-4. **(9-12 min)** Ir a la consola de Bedrock Guardrails y ajustar: cambiar la acción de `BANK_ACCOUNT_NUMBER` de `BLOCK` a `ANONYMIZE`
-5. **(12-15 min)** Re-ejecutar con `--output reporte_v2.html`. Mostrar el diff: FP rate bajó de 23% a 4%. Los FN de PromptAttackPolicy se mantienen en 0% (nada se rompió)
+- Ejecutar la CLI contra el dataset completo y verificar que el reporte HTML se genera correctamente con las matrices de confusión por política
+- Identificar al menos un caso de falso positivo real en el reporte y ajustar la configuración del guardrail para reducirlo
+- Re-ejecutar tras el ajuste y verificar que la tasa de FP bajó sin introducir nuevos falsos negativos
+- Revisar la tabla de casos problemáticos: ¿los prompts listados son realmente problemáticos o son detecciones legítimas?
+
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
@@ -61,11 +61,15 @@ Y genera un **reporte HTML** con:
 - Calcular la matriz de confusión por política
 - Output a JSON con todos los resultados
 
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
+
 **Segunda fase — Reporte HTML y flujo de calibración:**
 - Template Jinja2 para el reporte HTML con los 4 widgets de matriz de confusión
 - Tabla de top 10 casos problemáticos con sorting por tipo de error
 - Comando `--compare reporte_v1.json reporte_v2.json` que genera un diff de mejora entre dos ejecuciones
 - Documentación de las opciones de la CLI con `--help`
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 ---
 
@@ -105,13 +109,15 @@ Reemplazar Bedrock Guardrails por **OpenAI Moderation API** (gratuita). El schem
 - ¿Cuándo un guardrail "perfecto" en el dataset de prueba falla en producción? ¿Qué sesgos introduce la selección manual de casos?
 - ¿Cómo presentar métricas de un guardrail a un stakeholder no técnico de forma que pueda tomar decisiones concretas?
 - ¿Qué diferencias de comportamiento hay entre políticas de topic, contenido, y PII? ¿Cuáles son más difíciles de calibrar y por qué?
-- ¿Qué pasa si el equipo calibra un guardrail que está en producción? ¿Cómo se aisla el trabajo de laboratorio del impacto real?
+- ¿Qué pasa si el equipo calibra un guardrail que está en producción? ¿Cómo se aísla el trabajo de laboratorio del impacto real?
+- ¿La IA fue capaz de generar test cases adversariales útiles, o tendió a generar casos obvios que no desafían al guardrail?
+- ¿Cómo usó el equipo IA para diseñar el dataset de evaluación? ¿Qué sesgos introdujo eso en los resultados?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — Guardrails Calibration Tool — [Equipo]
@@ -133,9 +139,10 @@ al guardrail?]
 a la API de Bedrock con parámetros obsoletos? ¿El reporte HTML generado era
 visualmente inutilizable?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
 [ej: "Invertí tiempo en el dataset antes de tocar código. Un dataset de 40 casos bien

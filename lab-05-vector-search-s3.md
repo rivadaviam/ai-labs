@@ -1,8 +1,7 @@
 # Lab 05: Semantic Search Benchmark — S3 Vectors vs. Alternativas
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Intermedio
-**Servicios AWS:** S3 Vectors, Amazon Bedrock (embeddings)
 
 ---
 
@@ -39,42 +38,35 @@ El reporte incluye:
 - Overlap de resultados top-5 entre backends (% de documentos coincidentes)
 - Gráficos de distribución de latencia
 
-**Demo de 15 minutos:**
+**Validaciones sugeridas:**
 
-1. **(0-3 min)** Mostrar el corpus (100+ chunks de documentos técnicos reales o del dataset del lab) y las queries de prueba. Explicar en 60 segundos por qué se necesitan datos propios en lugar de benchmarks genéricos de internet.
-2. **(3-10 min)** Ejecutar el benchmark:
-   ```
-   python vector-bench.py --corpus ./docs --queries queries.txt --runs 3
+- Indexar el mismo corpus en ambos backends y verificar que la cantidad de vectores coincide
+- Correr el mismo conjunto de queries en ambos backends y comparar los resultados top-5
+- Verificar que las métricas de latencia (p50, p95, p99) son reproducibles entre runs
+- Validar el modelo de costos con los precios actuales de los servicios usados
+- Generar el reporte HTML y verificar que la tabla comparativa permite tomar una decisión fundamentada
 
-   Indexando corpus (127 chunks)...
-     S3 Vectors: 127 vectores indexados en 23.4s
-     Chroma:     127 vectores indexados en 4.1s
-
-   Corriendo 28 queries × 3 runs...
-     S3 Vectors: completado
-     Chroma:     completado
-
-   Overlap promedio top-5: 87.3%
-   Generando reporte → report/report.html
-   ```
-3. **(10-15 min)** Abrir `report.html` y mostrar la tabla comparativa. Explicar la decisión: para dev/staging y volúmenes < 1M vectores con < 500 queries/día, Chroma es claramente mejor. S3 Vectors tiene sentido en producción con corpus > 1M vectores donde no se quiere gestionar infraestructura.
-
-| Métrica | S3 Vectors | Chroma |
-|---------|-----------|--------|
-| Latencia p50 | 42ms | 6ms |
-| Latencia p95 | 89ms | 14ms |
-| Costo (100k vec, 100q/día) | $0.12/mes | $0 |
-| Costo (1M vec, 1000q/día) | $12.40/mes | $0 + infra |
-| Overlap top-5 | baseline | 87.3% |
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
 ## 5. Alcance del MVP
 
-| Semana | Foco | Entregables |
-|--------|------|-------------|
-| **1** | Corpus + backends funcionando | Corpus de prueba preparado (mínimo 100 chunks). Los dos backends indexan el mismo corpus. Una query corre en ambos y retorna resultados. |
-| **2** | Benchmark completo + reporte | CLI completo con todas las queries. Métricas de latencia calculadas. Modelo de costo implementado. Reporte HTML generado. Decisión documentada. |
+**Primera fase — Corpus + backends funcionando:**
+- Corpus de prueba preparado (mínimo 100 chunks)
+- Los dos backends indexan el mismo corpus
+- Una query corre en ambos y retorna resultados
+
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
+
+**Segunda fase — Benchmark completo + reporte:**
+- CLI completo con todas las queries
+- Métricas de latencia calculadas (p50, p95, p99)
+- Modelo de costo implementado
+- Reporte HTML generado
+- Decisión de arquitectura documentada con datos
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 **Fuera del MVP:** más de dos backends, benchmarking a escala 1M+ vectores, métricas de recall con ground truth etiquetado.
 
@@ -126,12 +118,14 @@ Con esta alternativa el benchmark corre completamente local — útil para proto
 - ¿Qué hace que un corpus de prueba sea representativo del caso de uso real? ¿Qué pasa si no lo es?
 - ¿Por qué es importante que ambos backends indexen exactamente los mismos vectores para que la comparación sea válida?
 - ¿Cómo se traduce un benchmark técnico en una recomendación de decisión concreta para el equipo?
+- ¿La IA fue útil para diseñar el protocolo del benchmark (qué medir, cómo controlar variables), o el equipo tuvo que diseñarlo manualmente?
+- ¿La IA generó código correcto para la API de S3 Vectors (servicio nuevo), o fue necesario recurrir a la documentación oficial?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — Semantic Search Benchmark — [Equipo]
@@ -153,9 +147,10 @@ mejoras al modelo de costo que el equipo no había considerado?]
 estar en datos de entrenamiento)? ¿Sugirió un modelo de costo con supuestos incorrectos?
 ¿El código de overlap tenía un bug que inflaba el porcentaje?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
 [ej: "Antes de escribir código, pedirle a Claude que diseñe el protocolo del benchmark —

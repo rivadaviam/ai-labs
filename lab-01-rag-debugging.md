@@ -1,8 +1,7 @@
 # Lab 01: RAG Health Monitor — Detección Automática de Degradación Silenciosa
 
-**Duración del equipo:** 2–3 personas
+**Equipo:** 2–3 personas
 **Nivel:** Intermedio
-**Servicios AWS:** Bedrock, Lambda, EventBridge, CloudWatch, OpenSearch Serverless
 
 ---
 
@@ -49,13 +48,15 @@ Métricas que el sistema publica:
 | `RAG/CanaryLatencyMs` | Int | Tiempo de respuesta del pipeline completo |
 | `RAG/DocumentsRetrieved` | Int | Cantidad de chunks recuperados por canary |
 
-**Demo de 15 minutos:**
+**Validaciones sugeridas:**
 
-1. **(0-3 min)** Mostrar el dashboard con todo en verde: `EmbeddingModelConsistency = 1`, `RetrievalQualityScore = 0.85`
-2. **(3-6 min)** Simular el bug: cambiar el model ID en la variable de entorno del Lambda de `v1` a `v2`
-3. **(6-10 min)** Esperar la ejecución del EventBridge (o disparar el Lambda manualmente). Mostrar la CloudWatch Alarm disparando con el mensaje: `"Embedding model mismatch: index=titan-v1, query=titan-v2"`
-4. **(10-13 min)** Mostrar el gráfico de `RetrievalQualityScore` cayendo de 0.85 a 0.12 en el dashboard
-5. **(13-15 min)** Revertir el cambio. Mostrar la alarma volviendo a OK en la siguiente ejecución
+- Verificar que el dashboard muestra las 4 métricas correctamente cuando el pipeline está sano
+- Simular el bug de embedding mismatch (cambiar el model ID) y verificar que la alarma se dispara
+- Verificar que el `RetrievalQualityScore` cae significativamente tras el mismatch
+- Revertir el cambio y verificar que la alarma vuelve a OK en la siguiente ejecución
+- Revisar los CloudWatch Logs del Lambda para confirmar que la información es suficiente para diagnosticar el problema
+
+*En el show & tell, el equipo muestra las validaciones que corrió y centra la conversación en decisiones tomadas, problemas encontrados, y lecciones aprendidas.*
 
 ---
 
@@ -63,17 +64,20 @@ Métricas que el sistema publica:
 
 **Primera fase — Infraestructura y lógica core:**
 - Provisionar OpenSearch Serverless o Bedrock Knowledge Base con un corpus de documentos de prueba (mínimo 50 documentos)
-- Implementar el Lambda con tres módulos: `embedding_consistency_check`, `canary_runner`, `metrics_publisher`
+- Implementar el Lambda con los checks de salud: consistency de embedding, canary queries, publicación de métricas
 - Definir un set de 5-10 canary queries con sus respuestas esperadas y scores de similarity umbral
 - Publicar las 4 métricas custom a CloudWatch
-- EventBridge rule configurada para ejecutar cada 5 minutos
+- EventBridge rule configurada para ejecución periódica
+
+> **Checkpoint de reflexión:** Anotar qué herramientas de IA usaron en esta fase, en qué tareas, y un momento donde la IA no ayudó o causó problemas.
 
 **Segunda fase — Observabilidad y validación:**
-- Dashboard de CloudWatch con los 4 widgets principales
-- CloudWatch Alarm configurada sobre `EmbeddingModelConsistency` con threshold = 0
-- Alarm adicional sobre `RetrievalQualityScore` con threshold < 0.5
-- Script de "break" que simula el bug (cambia la env var del Lambda)
+- Dashboard de CloudWatch con los widgets principales
+- CloudWatch Alarms configuradas sobre las métricas críticas
+- Script de "break" que simula el bug de embedding mismatch
 - Runbook en Markdown documentando cómo responder a cada alarma
+
+> **Checkpoint de reflexión:** Anotar si la IA cambió cómo abordaron esta fase vs. la primera, y qué ajustarían en el uso de IA si empezaran de nuevo.
 
 ---
 
@@ -124,12 +128,14 @@ Costo estimado: < $2 por equipo para todo el lab.
 - ¿Cómo afecta el tamaño del corpus a los costos y a la viabilidad del monitoreo continuo?
 - ¿Qué información necesita un runbook para ser útil en una situación de incidente real vs. uno que no se usa?
 - ¿Por qué una alarma puede dispararse sin que haya un bug real? ¿Qué dice eso sobre la calibración del sistema?
+- ¿La IA fue útil para diseñar las canary queries y sus umbrales, o generó casos triviales que no detectarían problemas reales?
+- ¿En qué tareas del lab la IA ayudó más: infraestructura (CDK/SAM), lógica del Lambda, o diseño del sistema de monitoreo?
 
 ---
 
-## 9. Reflexión AI (opcional)
+## 9. Reflexión AI
 
-Template para documentar el proceso de aprendizaje. No es un entregable obligatorio — se completa si el equipo decide hacerlo o si se acuerda un write-up posterior al show & tell.
+Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta como parte del show & tell.
 
 ```
 ## Reflexión AI — RAG Health Monitor — [Equipo]
@@ -150,9 +156,10 @@ en configurar CloudWatch, o en otro punto? ¿Cuánto tiempo estimás que ahorró
 de similarity que no tenían sentido para el corpus? ¿Propuso arquitectura con servicios
 que superaban el presupuesto?]
 
-### ¿La IA cambió cómo trabajó el equipo (no solo lo aceleró)?
-[ ] Sí — describir: ___
-[ ] No, solo aceleró tareas existentes
+### Cambio en el ciclo de desarrollo
+¿La IA cambió *cómo* trabajó el equipo (no solo lo aceleró)? Describir un ejemplo
+concreto de una decisión que tomaron diferente porque tenían IA disponible, o explicar
+por qué no cambió el flujo.
 
 ### Recomendación para el próximo equipo
 [ej: "Dedicá el primer día a provisionar OpenSearch y verificar que el Lambda puede

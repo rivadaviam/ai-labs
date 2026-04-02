@@ -43,11 +43,11 @@ Cada lab tiene 9 secciones: nombre, skill, problema, producto, MVP, extensión, 
 
 Cada lab incluye:
 - **Problema** — Escenario realista de un equipo de desarrollo
-- **Producto objetivo** — Qué se puede construir y cómo se muestra en el show & tell
-- **MVP (3 semanas)** — Qué se puede lograr a ~4 hs/sem/persona
+- **Producto objetivo** — Qué se puede construir + validaciones sugeridas para probarlo
+- **MVP (3 semanas)** — Qué se puede lograr a ~4 hs/sem/persona, con checkpoints de reflexión al cierre de cada fase
 - **Stack** — Solo se prescribe si la tecnología es parte del aprendizaje; si no, el equipo elige
-- **Terreno a explorar** — Conceptos clave, fenómenos esperables, y preguntas que el lab debería responder
-- **Reflexión AI** — Template opcional para documentar cómo usaron IA durante el lab
+- **Terreno a explorar** — Conceptos clave, fenómenos esperables, y preguntas que el lab debería responder — incluyendo preguntas sobre el uso de IA durante la construcción
+- **Reflexión AI** — Síntesis obligatoria de los checkpoints de reflexión recogidos durante el lab
 
 Los labs son **independientes**: cualquier equipo puede hacer cualquier lab en cualquier orden.
 
