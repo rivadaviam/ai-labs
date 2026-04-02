@@ -1,7 +1,7 @@
 # Criterios del Programa de Labs de IA
 
 > Fuente de verdad del programa. Se actualiza a medida que evoluciona.
-> Última actualización: 2026-03-31
+> Última actualización: 2026-04-02
 
 ---
 
@@ -72,6 +72,9 @@ Cada lab está anclado en un patrón vigente que los equipos de desarrollo neces
 | Embeddings y vector search | Labs 01, 05 |
 | Event-driven con Knowledge Bases | Lab 04 |
 | Cross-region inference y throttling | Lab 06 |
+| Spec-driven development | Lab 12 |
+| Model Context Protocol (MCP) | Lab 13 |
+| Agent Skills | Lab 14 |
 
 ### 2. Problemas Reales de GenAI
 Los escenarios de los labs deben reflejar problemas que los equipos enfrentan en producción:
@@ -191,6 +194,9 @@ Cada lab tiene estas **9 secciones**:
 | 09 | AgentOps | AI Agents + tool use (ReAct) |
 | 10 | DocSense | Structured extraction + docs |
 | 11 | KnowledgeBot | RAG con evaluación y feedback loop |
+| 12 | SpecFirst | Spec-driven development |
+| 13 | ContextBridge | Model Context Protocol (MCP) |
+| 14 | SkillForge | Agent Skills |
 
 ---
 
@@ -201,3 +207,4 @@ Cada lab tiene estas **9 secciones**:
 | 2026-03-30 | Creación inicial. Labs 01-06 identificados como derivados de certificación AWS. Labs 07-11 creados como labs de producto. |
 | 2026-03-30 | Criterios afinados: duración 2-3 sem / 4 hs/sem, herramientas Codex+Windsurf+Copilot+Claude, labs independientes, nivel mixto, AWS corporativo bajo costo, loop de mejora = demo + documento. |
 | 2026-03-31 | Filosofía reenfocada: el aprendizaje es el fin, construir es el medio. Duración fija 3 semanas. Entregable → show & tell informal. Reflexión AI opcional. Secciones "Criterios de evaluación" + "Riesgos" mergeadas en "Terreno a explorar". Stack prescriptivo solo si la tecnología es el aprendizaje. AWS preferido pero no obligatorio. Distinción de formato entre labs eliminada. |
+| 2026-04-02 | Labs 12-14 agregados: SpecFirst (spec-driven development), ContextBridge (MCP: usar y crear), SkillForge (Agent Skills). Refuerzan el eje 2 ("usar IA para construir"). |

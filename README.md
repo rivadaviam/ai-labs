@@ -36,6 +36,9 @@ Cada lab tiene 9 secciones: nombre, skill, problema, producto, MVP, extensión, 
 | 09 | [AgentOps](lab-09-agentops.md) | AI Agents + tool use (ReAct) | CLI interactiva |
 | 10 | [DocSense](lab-10-docsense.md) | Structured extraction + docs | CLI + API REST |
 | 11 | [KnowledgeBot](lab-11-knowledge-bot.md) | RAG con evaluación y feedback loop | Slack bot / CLI |
+| 12 | [SpecFirst — Desarrollo Guiado por Especificación](lab-12-spec-driven.md) | Spec-driven development | Spec + feature + reporte de adherencia |
+| 13 | [ContextBridge — MCP: Usar y Crear](lab-13-mcp.md) | Model Context Protocol (MCP) | MCP server propio + demo de integración |
+| 14 | [SkillForge — Crear y Usar Agent Skills](lab-14-agent-skills.md) | Agent Skills | 2-3 skills funcionales + demo |
 
 ---
 
@@ -68,6 +71,9 @@ Los labs son **independientes**: cualquier equipo puede hacer cualquier lab en c
 | Cómo construir un agente de diagnóstico | 09 |
 | Cómo extraer datos de documentos no estructurados | 10 |
 | Cómo construir un bot de documentación interna | 11 |
+| Cómo desarrollar guiado por especificaciones generadas con IA | 12 |
+| Cómo extender un agente de IA con herramientas propias (MCP) | 13 |
+| Cómo empaquetar conocimiento del equipo para agentes de IA | 14 |
 
 ---
 
