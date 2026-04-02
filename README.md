@@ -14,7 +14,7 @@ Labs prácticos para equipos de 2–3 personas. El fin es el aprendizaje — con
 | Duración por lab | 3 semanas |
 | Dedicación | ~4 horas/semana/persona (24–36 hs totales) |
 | Cierre | Show & tell informal del proceso, lo construido, y posibles mejoras |
-| Herramientas AI | Copilot, Codex, Windsurf (corporativo) + Claude (personal) |
+| Herramientas AI | Codex, Windsurf, Copilot (corporativo) + Claude (personal) |
 
 Cada lab tiene 9 secciones: nombre, skill, problema, producto, MVP, extensión, stack, terreno a explorar, y reflexión AI.
 

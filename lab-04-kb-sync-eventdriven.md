@@ -134,7 +134,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Codex | Generar el Lambda handler y el test harness | |
+| Codex / Copilot | Generar el Lambda handler y el test harness | |
 | Claude | Debuggear permisos IAM y entender la API de Bedrock KB | |
 | Windsurf | Escribir y refactorizar el stack CDK/SAM | |
 

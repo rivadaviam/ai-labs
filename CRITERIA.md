@@ -35,9 +35,9 @@ El segundo eje es tan importante como el primero. Cada lab es una oportunidad pa
 ## Herramientas de IA Disponibles
 
 Los equipos eligen las herramientas que prefieren. Herramientas corporativas disponibles:
-- **GitHub Copilot** — completado inline en IDE
 - **Codex** — generación de código
 - **Windsurf** — IDE con agente integrado
+- **GitHub Copilot** — completado inline en IDE
 
 Herramientas adicionales que los participantes pueden incorporar por cuenta propia:
 - **Claude** (Claude.ai o Claude Code) — recomendado para tareas de diseño, debugging complejo, y generación de código con contexto amplio

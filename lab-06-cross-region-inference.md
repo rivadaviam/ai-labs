@@ -140,7 +140,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Codex | Generar el skeleton del gateway FastAPI y el cliente boto3 async | |
+| Codex / Copilot | Generar el skeleton del gateway FastAPI y el cliente boto3 async | |
 | Claude | Diseñar e implementar el circuit breaker y revisar la lógica de jitter | |
 | Windsurf | Refactorizar el código en módulos y generar el load_test.py | |
 

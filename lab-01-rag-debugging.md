@@ -143,9 +143,9 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Windsurf | Escribir el Lambda handler y los módulos de check | |
-| Claude | Diseñar las canary queries y los umbrales de similarity | |
 | Codex / ChatGPT | Generar el CDK/SAM para la infra | |
+| Claude | Diseñar las canary queries y los umbrales de similarity | |
+| Windsurf / Copilot | Escribir el Lambda handler y los módulos de check | |
 
 ### Mayor impacto de IA en este lab
 [¿La IA ayudó más en escribir el código del Lambda, en diseñar las canary queries,

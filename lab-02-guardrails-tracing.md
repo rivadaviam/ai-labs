@@ -125,9 +125,9 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Windsurf | Generar el runner de la CLI y el parsing de respuestas | |
-| Claude | Diseñar los test cases ambiguos del dataset JSONL | |
 | Codex / ChatGPT | Armar el template Jinja2 del reporte HTML | |
+| Claude | Diseñar los test cases ambiguos del dataset JSONL | |
+| Windsurf / Copilot | Generar el runner de la CLI y el parsing de respuestas | |
 
 ### Mayor impacto de IA en este lab
 [¿La IA ayudó más en generar test cases adversariales, en escribir el código de la CLI,
