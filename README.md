@@ -42,8 +42,7 @@ Cada lab tiene 9 secciones: nombre, skill, problema, producto, MVP, extensión, 
 | 15 | [MultiAgent — Orquestación Multi-Agente](lab-15-multi-agent.md) | Orquestación multi-agente | CLI + reporte consolidado |
 | 16 | [RedTeam — Seguridad y Red Teaming de IA](lab-16-red-team.md) | AI Security / Red teaming | Chatbot target + CLI redteam + reporte |
 | 17 | [VisualQA — IA Multimodal Aplicada al Desarrollo](lab-17-multimodal.md) | IA Multimodal (visión) | CLI + reporte de regresión visual |
-| 18 | [AITrace — Análisis de Uso de Agentes de IA](lab-18-ai-trace.md) | Análisis de uso de agentes | CLI/notebook + reporte de patrones |
-| 19 | [MemoryArch — Gestión de Contexto y Memoria](lab-19-memory.md) | Gestión de contexto y memoria | Asistente con memoria + métricas |
+| 18 | [MemoryArch — Gestión de Contexto y Memoria](lab-18-memory.md) | Gestión de contexto y memoria | Asistente con memoria + métricas |
 
 ---
 
@@ -82,8 +81,7 @@ Los labs son **independientes**: cualquier equipo puede hacer cualquier lab en c
 | Cómo coordinar múltiples agentes de IA para resolver un problema complejo | 15 |
 | Cómo testear la seguridad de un sistema de IA antes de lanzarlo | 16 |
 | Cómo usar modelos de visión para automatizar revisión visual de UI | 17 |
-| Cómo analizar los patrones de uso de IA del equipo | 18 |
-| Cómo manejar conversaciones largas sin perder contexto | 19 |
+| Cómo manejar conversaciones largas sin perder contexto | 18 |
 
 ---
 
