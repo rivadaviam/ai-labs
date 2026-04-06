@@ -129,9 +129,9 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Windsurf | Escribir el scanner de políticas IAM y el manejo de paginación | |
-| Claude | Generar los casos de prueba IAM y los templates de política correctiva | |
 | Codex / ChatGPT | Armar el reporte HTML y el template Jinja2 | |
+| Claude | Generar los casos de prueba IAM y los templates de política correctiva | |
+| Windsurf / Copilot | Escribir el scanner de políticas IAM y el manejo de paginación | |
 
 ### Mayor impacto de IA en este lab
 [¿La IA fue útil para escribir el parser de políticas IAM (formato JSON anidado complejo)?

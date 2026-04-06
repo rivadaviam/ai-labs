@@ -124,7 +124,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Windsurf / Codex | Construir el producto y el MCP server con asistencia de MCPs | |
+| Codex / Windsurf | Construir el producto y el MCP server con asistencia de MCPs | |
 | MCPs de terceros | Potenciar al agente durante el desarrollo (filesystem, SQLite, GitHub) | |
 
 ### Mayor impacto de IA en este lab

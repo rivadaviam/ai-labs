@@ -116,8 +116,8 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
 | BMAD / alternativa | Generar la especificación inicial | |
-| Windsurf / Codex | Construir el producto desde la spec | |
-| Windsurf / Codex | Generar tests desde acceptance criteria | |
+| Codex / Windsurf | Construir el producto desde la spec | |
+| Codex / Windsurf | Generar tests desde acceptance criteria | |
 
 ### Mayor impacto de IA en este lab
 [¿La IA ayudó más en generar la spec, en construir el código desde la spec, en generar

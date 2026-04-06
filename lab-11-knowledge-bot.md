@@ -110,7 +110,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Codex | Implementar el pipeline de ingestion y el bot de Slack | |
+| Codex / Copilot | Implementar el pipeline de ingestion y el bot de Slack | |
 | Claude / ChatGPT | Diseñar el system prompt anti-alucinaciones y generar preguntas de prueba | |
 | Windsurf / Cursor | Construir el pipeline RAG y el sistema de logging | |
 

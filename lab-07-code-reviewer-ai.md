@@ -106,7 +106,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Codex | Escribir el GitHub Action y el parsing del diff | |
+| Codex / Copilot | Escribir el GitHub Action y el parsing del diff | |
 | Claude / ChatGPT | Diseñar el prompt de revisión y iterar sobre la calidad de los comentarios | |
 | Windsurf / Cursor | Integrar con la GitHub Review API y debuggear el Action | |
 

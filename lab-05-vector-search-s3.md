@@ -133,7 +133,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Codex | Generar el código de los backends y la lógica de percentiles | |
+| Codex / Copilot | Generar el código de los backends y la lógica de percentiles | |
 | Claude | Diseñar el modelo de costo y revisar la validez estadística del benchmark | |
 | Windsurf | Construir el CLI y el generador de reporte HTML | |
 

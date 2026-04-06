@@ -46,7 +46,7 @@ Un **set de 2-3 Agent Skills funcionales** que empaquetan workflows de desarroll
 ## 5. Alcance del MVP
 
 **Primera fase — Entender el formato: instalar y explorar skills existentes:**
-- Setup del entorno: VS Code + GitHub Copilot en modo Agent, o Windsurf (ambos soportan Agent Skills)
+- Setup del entorno: Windsurf, o VS Code + GitHub Copilot en modo Agent (ambos soportan Agent Skills)
 - Instalar 2-3 skills del ecosistema existente en `.agents/skills/` — fuentes recomendadas:
   - [Skills curadas por OpenAI](https://github.com/openai/skills/tree/main/skills/.curated): `security-best-practices`, `doc`, `playwright`, `gh-fix-ci`
   - [Directorio skills.sh](https://skills.sh/): `systematic-debugging`, `test-driven-development`, `code-review`
@@ -100,7 +100,7 @@ No se requiere infraestructura cloud ni servicios externos. Todo corre local en 
 - ¿Qué tipo de conocimiento se empaqueta bien en una skill (procedimientos, checklists, convenciones) y qué tipo no (intuición, juicio, contexto implícito)?
 - ¿Cuántas skills puede manejar un agente antes de que empiece a confundirse o elegir la skill incorrecta?
 - ¿Cómo se itera una skill? ¿Qué feedback loop funciona — probar con prompts variados, leer el trace del agente, comparar output con/sin skill?
-- ¿Las skills son portables entre agentes (Copilot, Windsurf)? ¿Se comportan igual o hay diferencias en cómo cada agente las interpreta?
+- ¿Las skills son portables entre agentes (Windsurf, Copilot)? ¿Se comportan igual o hay diferencias en cómo cada agente las interpreta?
 - ¿Qué pasa cuando dos skills cubren dominios que se solapan? ¿El agente elige bien cuál activar?
 - ¿La IA asistente ayudó a escribir las instrucciones de las skills, o el equipo tuvo que iterar manualmente hasta que las instrucciones fueran específicas y accionables?
 - ¿Es más difícil escribir una buena description (para que el agente la descubra) o buenas instrucciones (para que el agente las ejecute bien)?
@@ -117,7 +117,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Windsurf | Probar skills instaladas y las que creamos | |
+| Codex / Windsurf | Probar skills instaladas y las que creamos | |
 | Codex | Generar borradores de SKILL.md y scripts | |
 | skills-ref | Validar formato de las skills creadas | |
 

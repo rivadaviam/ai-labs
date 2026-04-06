@@ -107,7 +107,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Codex | Implementar el runner con asyncio y el parsing de resultados | |
+| Codex / Copilot | Implementar el runner con asyncio y el parsing de resultados | |
 | Claude / ChatGPT | Diseñar el prompt del LLM-judge y generar test cases | |
 | Windsurf / Cursor | Construir la CLI y el generador de reporte HTML | |
 

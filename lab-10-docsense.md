@@ -109,7 +109,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Codex | Implementar el parsing de PDFs y la API REST | |
+| Codex / Copilot | Implementar el parsing de PDFs y la API REST | |
 | Claude / ChatGPT | Diseñar el schema YAML y los few-shot examples del prompt de extracción | |
 | Windsurf / Cursor | Construir la CLI y el generador de reporte HTML | |
 

@@ -135,7 +135,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Codex | Escribir el código del pipeline y las post-conditions | |
+| Codex / Copilot | Escribir el código del pipeline y las post-conditions | |
 | Claude / ChatGPT | Diseñar los prompts de las AI Functions | |
 | Windsurf / Cursor | Explorar el repositorio y entender los ejemplos | |
 

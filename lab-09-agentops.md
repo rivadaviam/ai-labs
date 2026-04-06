@@ -107,7 +107,7 @@ Síntesis de los checkpoints de reflexión recogidos durante el lab. Se presenta
 ### Herramientas usadas
 | Herramienta | Para qué la usamos | Resultado (1-5) |
 |---|---|---|
-| Copilot / Codex | Implementar las tools simuladas y el loop ReAct | |
+| Codex / Copilot | Implementar las tools simuladas y el loop ReAct | |
 | Claude / ChatGPT | Diseñar el system prompt del agente y generar datos simulados | |
 | Windsurf / Cursor | Debuggear el comportamiento del agente y refactorizar | |
 
