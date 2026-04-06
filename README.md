@@ -39,6 +39,10 @@ Cada lab tiene 9 secciones: nombre, skill, problema, producto, MVP, extensión, 
 | 12 | [SpecFirst — Desarrollo Guiado por Especificación](lab-12-spec-driven.md) | Spec-driven development | Spec + feature + reporte de adherencia |
 | 13 | [ContextBridge — MCP: Usar y Crear](lab-13-mcp.md) | Model Context Protocol (MCP) | MCP server propio + demo de integración |
 | 14 | [SkillForge — Crear y Usar Agent Skills](lab-14-agent-skills.md) | Agent Skills | 2-3 skills funcionales + demo |
+| 15 | [MultiAgent — Orquestación Multi-Agente](lab-15-multi-agent.md) | Orquestación multi-agente | CLI + reporte consolidado |
+| 16 | [RedTeam — Seguridad y Red Teaming de IA](lab-16-red-team.md) | AI Security / Red teaming | Chatbot target + CLI redteam + reporte |
+| 17 | [VisualQA — IA Multimodal Aplicada al Desarrollo](lab-17-multimodal.md) | IA Multimodal (visión) | CLI + reporte de regresión visual |
+| 18 | [MemoryArch — Gestión de Contexto y Memoria](lab-18-memory.md) | Gestión de contexto y memoria | Asistente con memoria + métricas |
 
 ---
 
@@ -74,6 +78,10 @@ Los labs son **independientes**: cualquier equipo puede hacer cualquier lab en c
 | Cómo desarrollar guiado por especificaciones generadas con IA | 12 |
 | Cómo extender un agente de IA con herramientas propias (MCP) | 13 |
 | Cómo empaquetar conocimiento del equipo para agentes de IA | 14 |
+| Cómo coordinar múltiples agentes de IA para resolver un problema complejo | 15 |
+| Cómo testear la seguridad de un sistema de IA antes de lanzarlo | 16 |
+| Cómo usar modelos de visión para automatizar revisión visual de UI | 17 |
+| Cómo manejar conversaciones largas sin perder contexto | 18 |
 
 ---
 

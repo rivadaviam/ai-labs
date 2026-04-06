@@ -1,7 +1,7 @@
 # Criterios del Programa de Labs de IA
 
 > Fuente de verdad del programa. Se actualiza a medida que evoluciona.
-> Última actualización: 2026-04-02
+> Última actualización: 2026-04-02b
 
 ---
 
@@ -75,6 +75,10 @@ Cada lab está anclado en un patrón vigente que los equipos de desarrollo neces
 | Spec-driven development | Lab 12 |
 | Model Context Protocol (MCP) | Lab 13 |
 | Agent Skills | Lab 14 |
+| Orquestación multi-agente | Lab 15 |
+| AI Security / Red teaming | Lab 16 |
+| IA Multimodal (visión) | Lab 17 |
+| Gestión de contexto y memoria | Lab 18 |
 
 ### 2. Problemas Reales de GenAI
 Los escenarios de los labs deben reflejar problemas que los equipos enfrentan en producción:
@@ -197,6 +201,10 @@ Cada lab tiene estas **9 secciones**:
 | 12 | SpecFirst | Spec-driven development |
 | 13 | ContextBridge | Model Context Protocol (MCP) |
 | 14 | SkillForge | Agent Skills |
+| 15 | MultiAgent | Orquestación multi-agente |
+| 16 | RedTeam | AI Security / Red teaming |
+| 17 | VisualQA | IA Multimodal (visión) |
+| 18 | MemoryArch | Gestión de contexto y memoria |
 
 ---
 
@@ -208,3 +216,4 @@ Cada lab tiene estas **9 secciones**:
 | 2026-03-30 | Criterios afinados: duración 2-3 sem / 4 hs/sem, herramientas Codex+Windsurf+Copilot+Claude, labs independientes, nivel mixto, AWS corporativo bajo costo, loop de mejora = demo + documento. |
 | 2026-03-31 | Filosofía reenfocada: el aprendizaje es el fin, construir es el medio. Duración fija 3 semanas. Entregable → show & tell informal. Reflexión AI opcional. Secciones "Criterios de evaluación" + "Riesgos" mergeadas en "Terreno a explorar". Stack prescriptivo solo si la tecnología es el aprendizaje. AWS preferido pero no obligatorio. Distinción de formato entre labs eliminada. |
 | 2026-04-02 | Labs 12-14 agregados: SpecFirst (spec-driven development), ContextBridge (MCP: usar y crear), SkillForge (Agent Skills). Refuerzan el eje 2 ("usar IA para construir"). |
+| 2026-04-02 | Labs 15-18 agregados como candidatos: MultiAgent (orquestación multi-agente), RedTeam (seguridad/red teaming), VisualQA (IA multimodal), MemoryArch (gestión de contexto y memoria). AITrace (análisis de uso de agentes) descartado: datos de Cascade almacenados en protobuf propietario sin schema documentado. Pendientes de revisión por el equipo. |
