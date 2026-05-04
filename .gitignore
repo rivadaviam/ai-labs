@@ -83,3 +83,7 @@ logs/
 tmp/
 temp/
 .cache/
+
+# ── PAI / Claude internal ────────────────────────────────────
+MEMORY/
+Plans/

@@ -1,5 +1,7 @@
 # Lab 01: RAG Health Monitor — Detección Automática de Degradación Silenciosa
 
+> 🇺🇸 [English version](en/lab-01-rag-debugging.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

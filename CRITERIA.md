@@ -1,7 +1,9 @@
 # Criterios del Programa de Labs de IA
 
 > Fuente de verdad del programa. Se actualiza a medida que evoluciona.
-> Última actualización: 2026-04-02b
+> Última actualización: 2026-04-30
+
+> 🇺🇸 [English version](en/CRITERIA.md)
 
 ---
 
@@ -48,11 +50,11 @@ Herramientas adicionales que los participantes pueden incorporar por cuenta prop
 
 ## Infraestructura
 
-- **AWS corporativo** — los participantes tienen acceso a una cuenta corporativa
+- **AWS es el entorno de referencia del programa** — los participantes tienen acceso a una cuenta corporativa y los labs 00–06 están diseñados y validados sobre servicios AWS nativos (Bedrock, Lambda, CDK, CloudWatch, IAM, S3 Vectors)
 - **Uso responsable** — el costo de AWS por lab debe ser mínimo (idealmente < $5–10 por equipo)
 - Priorizar servicios con capa gratuita o pricing por uso antes que recursos con costo fijo (ej: S3 Vectors antes que un cluster de OpenSearch)
-- AWS es preferido pero no obligatorio. Los labs son válidos con stack cloud-agnostic.
-- Para equipos sin acceso a servicios específicos de AWS: alternativas open-source/local son igualmente válidas (Ollama, Chroma, FAISS, etc.)
+- Los labs 07–18 son cloud-agnostic y pueden correrse sin cuenta AWS
+- Equipos sin acceso a servicios específicos de AWS pueden usar alternativas open-source/local (Ollama, Chroma, FAISS), pero deben documentar en qué difiere su experiencia del path AWS de referencia
 
 ---
 
@@ -144,7 +146,7 @@ El template de reflexión (incluido en cada lab) estructura la síntesis final:
 - [ ] **Requiere decisiones técnicas** — el equipo toma decisiones de diseño, no solo sigue instrucciones
 - [ ] **Comparable entre equipos** — distintos equipos pueden comparar sus resultados y aprendizajes
 - [ ] **Stack al servicio del concepto** — solo se prescribe una tecnología específica si aprenderla es parte del objetivo del lab; en otro caso el equipo elige libremente
-- [ ] **AWS preferido pero no obligatorio** — cuando hay servicios relevantes de bajo costo que forman parte del aprendizaje
+- [ ] **AWS como entorno por defecto** — si el lab involucra infraestructura cloud, debe estar diseñado y documentado sobre AWS; usar otro stack requiere justificación explícita
 - [ ] **Costo AWS mínimo** — los recursos creados no deben exceder ~$5–10 por equipo para el MVP
 
 ### Criterios de Cierre de Cada Lab
@@ -184,27 +186,27 @@ Cada lab tiene estas **9 secciones**:
 
 ## Alcance de los Labs Actuales
 
-| Lab | Nombre | Skill Principal |
-|---|---|---|
-| 00 | AI Functions | AI Functions + Agentic flows |
-| 01 | RAG Health Monitor | Observabilidad de pipelines RAG |
-| 02 | Guardrails Calibration Tool | Evaluación de guardrails (FP/FN) |
-| 03 | AI Governance Scanner | AI governance + IAM compliance |
-| 04 | Live KB Sync Pipeline | Event-driven + Knowledge Bases |
-| 05 | Semantic Search Benchmark | Benchmarking de vector search |
-| 06 | Resilient LLM Gateway | Resiliencia + cross-region inference |
-| 07 | CodeReviewer AI | LLM workflows + structured output |
-| 08 | PromptBench | Prompt evaluation / LLM-as-judge |
-| 09 | AgentOps | AI Agents + tool use (ReAct) |
-| 10 | DocSense | Structured extraction + docs |
-| 11 | KnowledgeBot | RAG con evaluación y feedback loop |
-| 12 | SpecFirst | Spec-driven development |
-| 13 | ContextBridge | Model Context Protocol (MCP) |
-| 14 | SkillForge | Agent Skills |
-| 15 | MultiAgent | Orquestación multi-agente |
-| 16 | RedTeam | AI Security / Red teaming |
-| 17 | VisualQA | IA Multimodal (visión) |
-| 18 | MemoryArch | Gestión de contexto y memoria |
+| Lab | Nombre | Skill Principal | AWS |
+|---|---|---|---|
+| 00 | AI Functions | AI Functions + Agentic flows | ☁️ Bedrock |
+| 01 | RAG Health Monitor | Observabilidad de pipelines RAG | ☁️ Lambda, CloudWatch, Bedrock |
+| 02 | Guardrails Calibration Tool | Evaluación de guardrails (FP/FN) | ☁️ Bedrock Guardrails |
+| 03 | AI Governance Scanner | AI governance + IAM compliance | ☁️ IAM, Bedrock |
+| 04 | Live KB Sync Pipeline | Event-driven + Knowledge Bases | ☁️ CDK, S3, Bedrock KB |
+| 05 | Semantic Search Benchmark | Benchmarking de vector search | ☁️ S3 Vectors, Bedrock |
+| 06 | Resilient LLM Gateway | Resiliencia + cross-region inference | ☁️ Bedrock cross-region |
+| 07 | CodeReviewer AI | LLM workflows + structured output | — |
+| 08 | PromptBench | Prompt evaluation / LLM-as-judge | — |
+| 09 | AgentOps | AI Agents + tool use (ReAct) | — |
+| 10 | DocSense | Structured extraction + docs | — |
+| 11 | KnowledgeBot | RAG con evaluación y feedback loop | — |
+| 12 | SpecFirst | Spec-driven development | — |
+| 13 | ContextBridge | Model Context Protocol (MCP) | — |
+| 14 | SkillForge | Agent Skills | — |
+| 15 | MultiAgent | Orquestación multi-agente | — |
+| 16 | RedTeam | AI Security / Red teaming | — |
+| 17 | VisualQA | IA Multimodal (visión) | — |
+| 18 | MemoryArch | Gestión de contexto y memoria | — |
 
 ---
 
@@ -217,3 +219,4 @@ Cada lab tiene estas **9 secciones**:
 | 2026-03-31 | Filosofía reenfocada: el aprendizaje es el fin, construir es el medio. Duración fija 3 semanas. Entregable → show & tell informal. Reflexión AI opcional. Secciones "Criterios de evaluación" + "Riesgos" mergeadas en "Terreno a explorar". Stack prescriptivo solo si la tecnología es el aprendizaje. AWS preferido pero no obligatorio. Distinción de formato entre labs eliminada. |
 | 2026-04-02 | Labs 12-14 agregados: SpecFirst (spec-driven development), ContextBridge (MCP: usar y crear), SkillForge (Agent Skills). Refuerzan el eje 2 ("usar IA para construir"). |
 | 2026-04-02 | Labs 15-18 agregados como candidatos: MultiAgent (orquestación multi-agente), RedTeam (seguridad/red teaming), VisualQA (IA multimodal), MemoryArch (gestión de contexto y memoria). AITrace (análisis de uso de agentes) descartado: datos de Cascade almacenados en protobuf propietario sin schema documentado. Pendientes de revisión por el equipo. |
+| 2026-04-30 | AWS promovido a entorno de referencia del programa. Labs 00–06 marcados como AWS-nativos con servicios específicos. Criterio "preferido pero no obligatorio" reemplazado por "entorno por defecto con justificación requerida para desvíos". Columna AWS agregada a la tabla de alcance. |

@@ -1,5 +1,7 @@
 # Lab 13: ContextBridge — MCP: Usar y Crear Servidores de Contexto
 
+> 🇺🇸 [English version](en/lab-13-mcp.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio–Avanzado
 

@@ -1,5 +1,7 @@
 # Lab 08: PromptBench — Evaluación Sistemática de Prompts de Producción
 
+> 🇺🇸 [English version](en/lab-08-prompt-bench.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

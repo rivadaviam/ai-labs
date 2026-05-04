@@ -1,5 +1,7 @@
 # Lab 15: MultiAgent — Orquestación Multi-Agente para Code Review
 
+> 🇺🇸 [English version](en/lab-15-multi-agent.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio–Avanzado
 

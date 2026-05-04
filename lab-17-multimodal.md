@@ -1,5 +1,7 @@
 # Lab 17: VisualQA — IA Multimodal Aplicada al Desarrollo
 
+> 🇺🇸 [English version](en/lab-17-multimodal.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

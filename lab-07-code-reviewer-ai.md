@@ -1,5 +1,7 @@
 # Lab 07: CodeReviewer AI — El Revisor que Nunca Duerme
 
+> 🇺🇸 [English version](en/lab-07-code-reviewer-ai.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

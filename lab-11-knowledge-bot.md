@@ -1,5 +1,7 @@
 # Lab 11: KnowledgeBot — RAG con Feedback Loop y Calidad Medible
 
+> 🇺🇸 [English version](en/lab-11-knowledge-bot.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio–Avanzado
 

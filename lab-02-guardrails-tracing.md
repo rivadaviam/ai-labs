@@ -1,5 +1,7 @@
 # Lab 02: Guardrails Calibration Tool — Medición Sistemática de Falsos Positivos
 
+> 🇺🇸 [English version](en/lab-02-guardrails-tracing.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

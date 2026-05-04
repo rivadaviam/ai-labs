@@ -1,5 +1,7 @@
 # Lab 12: SpecFirst — Desarrollo Guiado por Especificación
 
+> 🇺🇸 [English version](en/lab-12-spec-driven.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

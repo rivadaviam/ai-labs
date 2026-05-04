@@ -1,5 +1,7 @@
 # Lab 04: Live Knowledge Base Sync Pipeline
 
+> 🇺🇸 [English version](en/lab-04-kb-sync-eventdriven.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 
