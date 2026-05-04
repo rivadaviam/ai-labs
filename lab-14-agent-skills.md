@@ -1,5 +1,7 @@
 # Lab 14: SkillForge — Crear y Usar Agent Skills
 
+> 🇺🇸 [English version](en/lab-14-agent-skills.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Introductorio–Intermedio
 

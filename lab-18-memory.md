@@ -1,5 +1,7 @@
 # Lab 18: MemoryArch — Gestión de Contexto y Memoria en Sistemas de IA
 
+> 🇺🇸 [English version](en/lab-18-memory.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

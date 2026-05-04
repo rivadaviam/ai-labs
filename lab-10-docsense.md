@@ -1,5 +1,7 @@
 # Lab 10: DocSense — Extractor Inteligente de Documentos Técnicos
 
+> 🇺🇸 [English version](en/lab-10-docsense.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

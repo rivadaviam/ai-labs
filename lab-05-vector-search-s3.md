@@ -1,5 +1,7 @@
 # Lab 05: Semantic Search Benchmark — S3 Vectors vs. Alternativas
 
+> 🇺🇸 [English version](en/lab-05-vector-search-s3.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

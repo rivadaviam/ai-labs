@@ -1,5 +1,7 @@
 # Lab 16: RedTeam — Seguridad y Red Teaming de Sistemas de IA
 
+> 🇺🇸 [English version](en/lab-16-red-team.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

@@ -1,5 +1,7 @@
 # Lab 03: AI Governance Scanner — Auditoría Automática de Compliance de IAM para Bedrock
 
+> 🇺🇸 [English version](en/lab-03-guardrails-iam.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio–Avanzado
 

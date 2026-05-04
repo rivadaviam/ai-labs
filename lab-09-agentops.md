@@ -1,5 +1,7 @@
 # Lab 09: AgentOps — Agente Autónomo de Diagnóstico de Infraestructura
 
+> 🇺🇸 [English version](en/lab-09-agentops.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio–Avanzado
 

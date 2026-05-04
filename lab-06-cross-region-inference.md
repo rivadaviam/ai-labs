@@ -1,5 +1,7 @@
 # Lab 06: Resilient LLM Gateway — Anti-Throttling con Cross-Region Inference
 
+> 🇺🇸 [English version](en/lab-06-cross-region-inference.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Intermedio
 

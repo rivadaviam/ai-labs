@@ -1,5 +1,7 @@
 # Lab 00: AI Functions — Tu Primer Prototipo Agentico
 
+> 🇺🇸 [English version](en/lab-00-AI-functions.md)
+
 **Equipo:** 2–3 personas
 **Nivel:** Introductorio — punto de entrada al programa
 
